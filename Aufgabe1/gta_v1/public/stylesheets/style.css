@@ -9,9 +9,20 @@
 /* Global styling */
 
 html {
+  /* Größe des Elements wird durch die Kombination von Padding, Border und Content bestimmt  */
   box-sizing: border-box;
+
+  /* Student CODE */
+  /* Positioniert das Element relativ zum Vorgängerelement oder zum Seitenrand mit Rand = 0 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  /* Student CODE ENDE */
 }
 
+/* Default für Selektoren */
 * {
   margin: 0;
   padding: 0;
@@ -45,12 +56,13 @@ a {
 }
 
 /* ### TODO ### Styles for other HTML elements */
-
 /* ... your code here ... */
-
+fieldset{
+  /* Container Element fieldset bekommt 1 Pixel großen Rand und die Farbe --border-color */
+  border: 1px solid var(--border-color);
+}
 
 /* Grid styles (no changes required) */
-
 .row {
   width: 100%;
   display: flex;
@@ -108,30 +120,105 @@ a {
 
 
 /* ### TODO ### Styles for Header Component */
-
 /* ... your code here ... */
-
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1%;
+  background-color: var(--background-color);
+  border-bottom: solid 1px var(--border-color);
+}
+.header__image{
+  /* Die Höhe des Header Bildes 2-mal so groß wie die Schriftgröße ist. */
+  height: 2em;
+}
 
 /* ### TODO ### Styles for Main Component */
-
 /* ... your code here ... */
-
+main{
+  /* Elemente in Main passen ihre Größe dynamisch an */
+  display:flex;
+  /* Elemente in nächster Zeile darstellen wenn Platz zu klein */
+  flex-wrap: wrap;
+}
+input{
+  /* vh/vw Prozentualer Anteil an Pixeln */
+  height:4vh;
+  width:18vw;
+}
+button{
+  height: 4vh;
+  width: 18vw;
+}
 
 /* ### TODO ### Styles for Tagging component */
-
 /* ... your code here ... */
-
+.main__tagging{
+  padding:1%;
+  justify-items: center;
+}
+#tag-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1%;
+  margin: 1%;
+}
 
 /* ### TODO ### Styles for Discovery component */
-
 /* ... your code here ... */
+.main__discovery{
+  padding:1%;
+}
+.discovery__wrapper{
+  display: flex;
+  margin-top:1%;
+}
+.discovery__taglist{
+  width:40%;
+}
+li{
+  padding:1%;
+  list-style: none;
+  margin-bottom: 1%;
+}
 
+#map{
+  display: block;
+  height: auto;
+  width: auto;
+  min-height: 40vh;
+}
 
 /* ### TODO ### Styles for Footer Component */
-
 /* ... your code here ... */
-
+.footer{
+  display: flex;
+  background-color: var(--background-color);
+  height: 5vh;
+  justify-content: left;
+  border-top: solid 1px var(--border-color);
+}
+.footer{
+  padding: 1%;
+}
 
 /* ### TODO ### Media Queries */
 
 /* ... your code here ... */
+@media only screen and (max-width: 850px) {
+  main, .discovery__wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+  .row > *{
+    width: 100%;
+    padding: 2%;
+  }
+  .discovery__taglist, .discovery__results , .listitem , .item, .input, #map{
+    width: 100%;
+    margin-inline: 0;
+  }
+  fieldset{
+    padding-inline: 2%;
+  }
+}
