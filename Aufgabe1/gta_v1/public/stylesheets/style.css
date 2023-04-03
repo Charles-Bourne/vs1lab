@@ -192,14 +192,12 @@ li{
 /* ### TODO ### Styles for Footer Component */
 /* ... your code here ... */
 .footer{
+  padding: 1%;
   display: flex;
   background-color: var(--background-color);
   height: 5vh;
   justify-content: left;
   border-top: solid 1px var(--border-color);
-}
-.footer{
-  padding: 1%;
 }
 
 /* ### TODO ### Media Queries */
