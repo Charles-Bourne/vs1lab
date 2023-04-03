@@ -1,0 +1,266 @@
+/*
+  File origin: VS1LAB A1b  
+
+  CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
+  CSS variables used for clarity and themability (e.g. through SSR). 
+  Inherited box sizing used for ease of including 3rd party content-box components.
+*/
+
+/* Global styling */
+
+html {
+  /* Größe des Elements wird durch die Kombination von Padding, Border und Content bestimmt  */
+  box-sizing: border-box;
+
+  /* Student CODE */
+  /* Positioniert das Element relativ zum Vorgängerelement oder zum Seitenrand mit Rand = 0 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  
+  /* Student CODE ENDE */
+}
+
+/* Default für Selektoren */
+* {
+  margin: 0;
+  padding: 0;
+
+  /* This approach prevents issues with 3rd party content-box components */
+  box-sizing: inherit;
+}
+
+
+/* Variables (example: see declaration for "a" below) */
+
+:root {
+  --link-color: #00B7FF;
+  --background-color: #efefef;
+  --border-color: #cdcdcd;
+  --gray-color: #666;
+}
+
+
+/* HTML element styles */
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--link-color);
+}
+
+/* ### TODO ### Styles for other HTML elements */
+/* ... your code here ... */
+fieldset{
+  /* Container Element fieldset bekommt 1 Pixel großen Rand und die Farbe --border-color */
+  border: 1px solid var(--border-color);
+}
+
+legend {
+  padding: 10px ;
+}
+
+label{
+  color: rgb(156, 156, 156);
+  padding: 0px 5px;
+}
+
+input[type=text], select {
+  padding: 12px 10px;
+  margin: 8px 8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="button"], input[type="submit"] { 
+  padding: 10px 10px 10px 10px ;
+  align-content: center;
+  margin: 8px 8px;
+} 
+
+li{
+  flex: content;
+  border: 1px solid #ccc;
+  width: min-content;
+  min-width: max-content;
+  align-content: center;
+  color: #00B7FF;
+}
+
+/*-------------------------------------- Grid styles (no changes required) -------------------------------------- */
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.col-1 {
+  width: calc(8.33% - 1rem);
+}
+
+.col-2 {
+  width: calc(16.66% - 1rem);
+}
+
+.col-3 {
+  width: calc(25% - 1rem);
+}
+
+.col-4 {
+  width: calc(33.33% - 1rem);
+}
+
+.col-5 {
+  width: calc(41.66% - 1rem);
+}
+
+.col-6 {
+  width: calc(50% - 1rem);
+}
+
+.col-7 {
+  width: calc(58.33% - 1rem);
+}
+
+.col-8 {
+  width: calc(66.66% - 1rem);
+}
+
+.col-9 {
+  width: calc(75% - 1rem);
+}
+
+.col-10 {
+  width: calc(83.33% - 1rem);
+}
+
+.col-11 {
+  width: calc(91.66% - 1rem);
+}
+
+.col-12 {
+  width: calc(100% - 1rem);
+}
+/*------------------------------------------------------------------------------------------------------------------*/
+
+/* ### TODO ### Styles for Header Component */
+/* ... your code here ... */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1%;
+  background-color: var(--background-color);
+  border-bottom: solid 1px var(--border-color);
+  font-size: large;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.header__image{
+  /* Die Höhe des Header Bildes 2-mal so groß wie die Schriftgröße ist. */
+  height: 2em;
+}
+
+/* ### TODO ### Styles for Main Component */
+/* ... your code here ... */
+main{
+  /* Elemente in Main passen ihre Größe dynamisch an */
+  display:flex;
+  /* Elemente in nächster Zeile darstellen wenn Platz zu klein */
+  flex-wrap: wrap;
+}
+input{
+  /* vh/vw Prozentualer Anteil an Pixeln */
+  height:4vh;
+  width:18vw;
+}
+button{
+  height: 4vh;
+  width: 18vw;
+}
+
+/* ### TODO ### Styles for Tagging component */
+/* ... your code here ... */
+.main__tagging{
+  padding:1%;
+  justify-items: center;
+}
+#tag-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.tagging__title{
+  padding-bottom: 10px;
+}
+
+/* ### TODO ### Styles for Discovery component */
+/* ... your code here ... */
+.main__discovery{
+  padding:1%;
+}
+.discovery__title{
+  padding-bottom: 10px;
+}
+.discovery__wrapper{
+  display: flex;
+  margin-top:1%;
+}
+.discovery__taglist{
+  width:40%;
+}
+li{
+  border: solid 1px var(--border-color);
+  padding: 10px;
+  background-color: var(--background-color);
+  min-width: 250px;
+}
+
+#map{
+  display: block;
+  height: auto;
+  width: auto;
+  min-height: 40vh;
+}
+
+/* ### TODO ### Styles for Footer Component */
+/* ... your code here ... */
+.footer{
+  padding: 1%;
+  display: flex;
+  background-color: var(--background-color);
+  height: 5vh;
+  border-top: solid 1px var(--border-color);
+  justify-content: space-evenly;
+  margin-top: auto;
+}
+
+/* ### TODO ### Media Queries */
+/* ... your code here ... */
+@media only screen and (max-width: 850px) {
+  main, .discovery__wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+  .row > *{
+    width: 100%;
+    padding: 2%;
+  }
+  .discovery__taglist, .discovery__results, #map{
+    width: 100%;
+    margin-inline: 0;
+  }
+  fieldset{
+    padding-inline: 2%;
+  }
+}
