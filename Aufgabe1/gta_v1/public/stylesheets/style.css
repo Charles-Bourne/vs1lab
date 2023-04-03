@@ -201,7 +201,6 @@ li{
 }
 
 /* ### TODO ### Media Queries */
-
 /* ... your code here ... */
 @media only screen and (max-width: 850px) {
   main, .discovery__wrapper{
@@ -212,7 +211,7 @@ li{
     width: 100%;
     padding: 2%;
   }
-  .discovery__taglist, .discovery__results , .listitem , .item, .input, #map{
+  .discovery__taglist, .discovery__results, #map{
     width: 100%;
     margin-inline: 0;
   }
