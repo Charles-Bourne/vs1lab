@@ -19,6 +19,7 @@ html {
   right: 0;
   left: 0;
   bottom: 0;
+  
   /* Student CODE ENDE */
 }
 
@@ -62,7 +63,40 @@ fieldset{
   border: 1px solid var(--border-color);
 }
 
-/* Grid styles (no changes required) */
+legend {
+  padding: 10px ;
+}
+
+label{
+  color: rgb(156, 156, 156);
+  padding: 0px 5px;
+}
+
+input[type=text], select {
+  padding: 12px 10px;
+  margin: 8px 8px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="button"], input[type="submit"] { 
+  padding: 10px 10px 10px 10px ;
+  align-content: center;
+  margin: 8px 8px;
+} 
+
+li{
+  flex: content;
+  border: 1px solid #ccc;
+  width: min-content;
+  min-width: max-content;
+  align-content: center;
+  color: #00B7FF;
+}
+
+/*-------------------------------------- Grid styles (no changes required) -------------------------------------- */
 .row {
   width: 100%;
   display: flex;
@@ -117,16 +151,20 @@ fieldset{
 .col-12 {
   width: calc(100% - 1rem);
 }
-
+/*------------------------------------------------------------------------------------------------------------------*/
 
 /* ### TODO ### Styles for Header Component */
 /* ... your code here ... */
 header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1%;
   background-color: var(--background-color);
   border-bottom: solid 1px var(--border-color);
+  font-size: large;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 .header__image{
   /* Die Höhe des Header Bildes 2-mal so groß wie die Schriftgröße ist. */
@@ -160,14 +198,19 @@ button{
 #tag-form {
   display: flex;
   flex-direction: column;
-  padding: 1%;
-  margin: 1%;
+}
+
+.tagging__title{
+  padding-bottom: 10px;
 }
 
 /* ### TODO ### Styles for Discovery component */
 /* ... your code here ... */
 .main__discovery{
   padding:1%;
+}
+.discovery__title{
+  padding-bottom: 10px;
 }
 .discovery__wrapper{
   display: flex;
@@ -177,9 +220,10 @@ button{
   width:40%;
 }
 li{
-  padding:1%;
-  list-style: none;
-  margin-bottom: 1%;
+  border: solid 1px var(--border-color);
+  padding: 10px;
+  background-color: var(--background-color);
+  min-width: 250px;
 }
 
 #map{
@@ -196,8 +240,9 @@ li{
   display: flex;
   background-color: var(--background-color);
   height: 5vh;
-  justify-content: left;
   border-top: solid 1px var(--border-color);
+  justify-content: space-evenly;
+  margin-top: auto;
 }
 
 /* ### TODO ### Media Queries */
