@@ -1,28 +1,16 @@
 /*
-  File origin: VS1LAB A1b  
-
+  File origin: VS1LAB A1b
   CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
-  CSS variables used for clarity and themability (e.g. through SSR). 
+  CSS variables used for clarity and themability (e.g. through SSR).
   Inherited box sizing used for ease of including 3rd party content-box components.
 */
 
 /* Global styling */
 
 html {
-  /* Größe des Elements wird durch die Kombination von Padding, Border und Content bestimmt  */
   box-sizing: border-box;
-
-  /* Student CODE */
-  /* Positioniert das Element relativ zum Vorgängerelement oder zum Seitenrand mit Rand = 0 */
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  /* Student CODE ENDE */
 }
 
-/* Default für Selektoren */
 * {
   margin: 0;
   padding: 0;
@@ -44,25 +32,29 @@ html {
 
 /* HTML element styles */
 
+/* Display the body as a grid and divide the main part into two columns. */
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   min-height: 100vh;
+  grid-template-rows: repeat(3, auto);
 }
 
 a {
   color: var(--link-color);
 }
 
+
 /* ### TODO ### Styles for other HTML elements */
 /* ... your code here ... */
+
 fieldset{
   /* Container Element fieldset bekommt 1 Pixel großen Rand und die Farbe --border-color */
   border: 1px solid var(--border-color);
 }
 
 /* Grid styles (no changes required) */
+
 .row {
   width: 100%;
   display: flex;
@@ -120,91 +112,137 @@ fieldset{
 
 
 /* ### TODO ### Styles for Header Component */
-/* ... your code here ... */
+
 header {
-  display: flex;
-  justify-content: space-between;
-  padding: 1%;
+  /*  Declaring flex is not necessary, since it is already declared in the row-class. */
+  /* display: flex;
+  flex-direction: row;
+  justify-content: space-around; */
+  height: minmax(auto, calc(16.66% - 1rem));
+  align-items: center;
+  /* padding: top right bottom left; */
+  /* Create some space between the borders of the header and the elements inside it. */
+  padding: 2rem;
   background-color: var(--background-color);
   border-bottom: solid 1px var(--border-color);
 }
+
 .header__image{
-  /* Die Höhe des Header Bildes 2-mal so groß wie die Schriftgröße ist. */
-  height: 2em;
+  /* Die Höhe des Header Bildes 3-mal so groß wie die Schriftgröße ist. */
+  height: 3rem;
 }
+
 
 /* ### TODO ### Styles for Main Component */
-/* ... your code here ... */
+
 main{
-  /* Elemente in Main passen ihre Größe dynamisch an */
-  display:flex;
+  /* Declaring flex is not necessary, since it is already declared in the row-class. */
   /* Elemente in nächster Zeile darstellen wenn Platz zu klein */
-  flex-wrap: wrap;
-}
-input{
-  /* vh/vw Prozentualer Anteil an Pixeln */
-  height:4vh;
-  width:18vw;
-}
-button{
-  height: 4vh;
-  width: 18vw;
+  /* flex-wrap: wrap; */
+  padding: 2rem;
 }
 
+/* Define same widthm height and margin properties for input and button elements. */
+input, button {
+  display: block;
+  /* vh/vw (view width/view height) Prozentualer Anteil an Pixeln*/
+  height:4vh;
+  width:16vw;
+  /* Add some space above the elements. */
+  margin-top: 0.5rem;
+}
+
+input {
+  /* Create some space between the left side of the input field and the placeholder text. */
+  padding-left: 0.5rem;
+}
+
+h2 {
+  /* Create some space between the headers and the main parts*/
+  padding-bottom: 1rem;
+}
+
+
 /* ### TODO ### Styles for Tagging component */
-/* ... your code here ... */
+
 .main__tagging{
   padding:1%;
-  justify-items: center;
 }
+
 #tag-form {
   display: flex;
   flex-direction: column;
-  padding: 1%;
-  margin: 1%;
 }
 
+#tag-form fieldset {
+  /* Give the fieldset some space between the borders and the fields. */
+  padding: 1rem 1.5rem 1rem 1rem;
+}
+
+
 /* ### TODO ### Styles for Discovery component */
-/* ... your code here ... */
+
 .main__discovery{
   padding:1%;
 }
+
 .discovery__wrapper{
-  display: flex;
+  display: grid;
   margin-top:1%;
+  flex-direction: row;
+  /*
+  margin-top:1%;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 2fr;
+  */
 }
-.discovery__taglist{
-  width:40%;
-}
+
+/* .discovery__taglist{
+  
+}  */
+
+
 li{
   padding:1%;
   list-style: none;
-  margin-bottom: 1%;
-}
-
-#map{
-  display: block;
-  height: auto;
-  width: auto;
-  min-height: 40vh;
-}
-
-/* ### TODO ### Styles for Footer Component */
-/* ... your code here ... */
-.footer{
-  display: flex;
+  font-weight: bold;
+  color: var(--link-color);
   background-color: var(--background-color);
-  height: 5vh;
-  justify-content: left;
-  border-top: solid 1px var(--border-color);
+  border: solid 1px var(--border-color);
+  margin-top: 1rem;
+  padding: 1rem;
 }
-.footer{
+
+.discovery__map {
   padding: 1%;
 }
 
+#map{
+  display: block; 
+  height: auto;
+  width: auto;
+  min-height: 40vh;
+} 
+
+
+/* ### TODO ### Styles for Footer Component */
+
+footer {
+  height: minmax(auto, calc(16.66% - 1rem));
+  background-color: var(--background-color);
+  /* Position items to the left of the footer and in the middle for the height. */
+  justify-content: left;
+  align-items: center;
+  /* Create some space between the left border and the item. */
+  padding: 2rem;
+  border-top: solid 1px var(--border-color);
+}
+
+
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+/* ... your code here ... *
 @media only screen and (max-width: 850px) {
   main, .discovery__wrapper{
     display: flex;
@@ -221,4 +259,4 @@ li{
   fieldset{
     padding-inline: 2%;
   }
-}
+} */
