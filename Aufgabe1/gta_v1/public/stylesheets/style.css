@@ -46,7 +46,6 @@ a {
 
 
 /* ### TODO ### Styles for other HTML elements */
-/* ... your code here ... */
 
 fieldset{
   /* Container Element fieldset bekommt 1 Pixel großen Rand und die Farbe --border-color */
@@ -115,12 +114,8 @@ fieldset{
 
 header {
   /*  Declaring flex is not necessary, since it is already declared in the row-class. */
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-around; */
   height: minmax(auto, calc(16.66% - 1rem));
   align-items: center;
-  /* padding: top right bottom left; */
   /* Create some space between the borders of the header and the elements inside it. */
   padding: 2rem;
   background-color: var(--background-color);
@@ -183,29 +178,34 @@ h2 {
 /* ### TODO ### Styles for Discovery component */
 
 .main__discovery{
-  padding:1%;
+  padding: 1%;
 }
 
 .discovery__wrapper{
-  display: grid;
-  margin-top:1%;
-  flex-direction: row;
-  /*
   margin-top:1%;
   display: grid;
-  width: 100%;
-  grid-template-columns: 1fr 2fr;
-  */
+  /* Scale the list and the map according to available space. */
+  grid-template-columns: minmax(calc(25% - 1rem), calc(33.33% - 1rem)) minmax(calc(50% - 1rem), auto);
+  justify-content: space-between;
+  gap: 1rem; /* Minimum space between the columns. */
 }
 
-/* .discovery__taglist{
-  
-}  */
+
+.discovery__search fieldset {
+  /* Give the fieldset some space between the borders and the fields. */
+  padding: 1rem 1.5rem 1rem 1rem;
+}
+
+.discovery__search fieldset button {
+  /* Add additional space above discovery button, because of hidden input fields. */
+  margin-top: 1rem;
+}
 
 
 li{
-  padding:1%;
+  /* Remove List Styles. */
   list-style: none;
+  /* Change font styling. */
   font-weight: bold;
   color: var(--link-color);
   background-color: var(--background-color);
@@ -215,15 +215,16 @@ li{
 }
 
 .discovery__map {
-  padding: 1%;
+  padding: 1rem;
 }
 
-#map{
+#mapView {
+  /* Scaling of the map does not work properly yet. */
   display: block; 
-  height: auto;
-  width: auto;
-  min-height: 40vh;
-} 
+  /* height: auto; */
+  /* width: 100%; */
+  height: minmax(40vh, 100%);
+}
 
 
 /* ### TODO ### Styles for Footer Component */
@@ -242,7 +243,7 @@ footer {
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... *
+/* ... your code here ... */
 @media only screen and (max-width: 850px) {
   main, .discovery__wrapper{
     display: flex;
@@ -259,4 +260,4 @@ footer {
   fieldset{
     padding-inline: 2%;
   }
-} */
+} 
