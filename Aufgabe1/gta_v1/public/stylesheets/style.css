@@ -128,7 +128,8 @@ header {
 
 .header__image{
   /* Die Höhe des Header Bildes 3-mal so groß wie die Schriftgröße ist. */
-  height: 3rem;
+  height: 4rem;
+  object-fit: contain;
 }
 
 
@@ -254,11 +255,19 @@ footer {
     width: 100%;
     padding: 2%;
   }
+
   .discovery__taglist, .discovery__results, #map{
     width: 100%;
     margin-inline: 0;
   }
-  fieldset{
-    padding-inline: 2%;
+
+  input[type="text"], button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    height: 2.5rem;
+    width: 90%;
+    padding: 0.5rem 0.5rem;
   }
 } 
