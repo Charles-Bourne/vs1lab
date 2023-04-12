@@ -254,6 +254,7 @@ footer {
     width: 100%;
     padding: 2%;
   }
+
   .discovery__taglist, .discovery__results, #map{
     width: 100%;
     margin-inline: 0;
