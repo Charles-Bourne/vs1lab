@@ -128,7 +128,8 @@ header {
 
 .header__image{
   /* Die Höhe des Header Bildes 3-mal so groß wie die Schriftgröße ist. */
-  height: 3rem;
+  height: 4rem;
+  object-fit: contain;
 }
 
 
