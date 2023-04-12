@@ -260,7 +260,11 @@ footer {
   }
 
   input[type="text"], button[type="submit"] {
-    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
     width: 90%;
+    padding: 40px 20px;
   }
 } 
