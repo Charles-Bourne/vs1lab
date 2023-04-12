@@ -258,7 +258,9 @@ footer {
     width: 100%;
     margin-inline: 0;
   }
-  fieldset{
-    padding-inline: 2%;
+
+  input[type="text"], button[type="submit"] {
+    font-size: 1.2rem;
+    width: 90%;
   }
 } 
