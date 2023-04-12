@@ -264,6 +264,8 @@ footer {
     align-items: center;
     justify-content: center;
     font-size: 2rem;
+    height: 2.5rem;
     width: 90%;
+    padding: 0.5rem 0.5rem;
   }
 } 
