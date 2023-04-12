@@ -52,6 +52,7 @@ fieldset{
   border: 1px solid var(--border-color);
 }
 
+/*------------------------------------------------------------------------------------------------------------------*/
 /* Grid styles (no changes required) */
 
 .row {
@@ -108,7 +109,7 @@ fieldset{
 .col-12 {
   width: calc(100% - 1rem);
 }
-
+/*------------------------------------------------------------------------------------------------------------------*/
 
 /* ### TODO ### Styles for Header Component */
 
@@ -120,6 +121,9 @@ header {
   padding: 2rem;
   background-color: var(--background-color);
   border-bottom: solid 1px var(--border-color);
+  font-size: large;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .header__image{
@@ -228,7 +232,6 @@ li{
 
 
 /* ### TODO ### Styles for Footer Component */
-
 footer {
   height: minmax(auto, calc(16.66% - 1rem));
   background-color: var(--background-color);
@@ -240,9 +243,7 @@ footer {
   border-top: solid 1px var(--border-color);
 }
 
-
 /* ### TODO ### Media Queries */
-
 /* ... your code here ... */
 @media only screen and (max-width: 850px) {
   main, .discovery__wrapper{
@@ -253,7 +254,7 @@ footer {
     width: 100%;
     padding: 2%;
   }
-  .discovery__taglist, .discovery__results , .listitem , .item, .input, #map{
+  .discovery__taglist, .discovery__results, #map{
     width: 100%;
     margin-inline: 0;
   }
