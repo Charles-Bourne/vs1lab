@@ -1,0 +1,273 @@
+/*
+  File origin: VS1LAB A1b
+  CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
+  CSS variables used for clarity and themability (e.g. through SSR).
+  Inherited box sizing used for ease of including 3rd party content-box components.
+*/
+
+/* Global styling */
+
+html {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  /* This approach prevents issues with 3rd party content-box components */
+  box-sizing: inherit;
+}
+
+
+/* Variables (example: see declaration for "a" below) */
+
+:root {
+  --link-color: #00B7FF;
+  --background-color: #efefef;
+  --border-color: #cdcdcd;
+  --gray-color: #666;
+}
+
+
+/* HTML element styles */
+
+/* Display the body as a grid and divide the main part into two columns. */
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: repeat(3, auto);
+}
+
+a {
+  color: var(--link-color);
+}
+
+
+/* ### TODO ### Styles for other HTML elements */
+
+fieldset{
+  /* Container Element fieldset bekommt 1 Pixel großen Rand und die Farbe --border-color */
+  border: 1px solid var(--border-color);
+}
+
+/*------------------------------------------------------------------------------------------------------------------*/
+/* Grid styles (no changes required) */
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.col-1 {
+  width: calc(8.33% - 1rem);
+}
+
+.col-2 {
+  width: calc(16.66% - 1rem);
+}
+
+.col-3 {
+  width: calc(25% - 1rem);
+}
+
+.col-4 {
+  width: calc(33.33% - 1rem);
+}
+
+.col-5 {
+  width: calc(41.66% - 1rem);
+}
+
+.col-6 {
+  width: calc(50% - 1rem);
+}
+
+.col-7 {
+  width: calc(58.33% - 1rem);
+}
+
+.col-8 {
+  width: calc(66.66% - 1rem);
+}
+
+.col-9 {
+  width: calc(75% - 1rem);
+}
+
+.col-10 {
+  width: calc(83.33% - 1rem);
+}
+
+.col-11 {
+  width: calc(91.66% - 1rem);
+}
+
+.col-12 {
+  width: calc(100% - 1rem);
+}
+/*------------------------------------------------------------------------------------------------------------------*/
+
+/* ### TODO ### Styles for Header Component */
+
+header {
+  /*  Declaring flex is not necessary, since it is already declared in the row-class. */
+  height: minmax(auto, calc(16.66% - 1rem));
+  align-items: center;
+  /* Create some space between the borders of the header and the elements inside it. */
+  padding: 2rem;
+  background-color: var(--background-color);
+  border-bottom: solid 1px var(--border-color);
+  font-size: large;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.header__image{
+  /* Die Höhe des Header Bildes 3-mal so groß wie die Schriftgröße ist. */
+  height: 4rem;
+  object-fit: contain;
+}
+
+
+/* ### TODO ### Styles for Main Component */
+
+main{
+  /* Declaring flex is not necessary, since it is already declared in the row-class. */
+  /* Elemente in nächster Zeile darstellen wenn Platz zu klein */
+  /* flex-wrap: wrap; */
+  padding: 2rem;
+}
+
+/* Define same widthm height and margin properties for input and button elements. */
+input, button {
+  display: block;
+  /* vh/vw (view width/view height) Prozentualer Anteil an Pixeln*/
+  height:4vh;
+  width:16vw;
+  /* Add some space above the elements. */
+  margin-top: 0.5rem;
+}
+
+input {
+  /* Create some space between the left side of the input field and the placeholder text. */
+  padding-left: 0.5rem;
+}
+
+h2 {
+  /* Create some space between the headers and the main parts*/
+  padding-bottom: 1rem;
+}
+
+
+/* ### TODO ### Styles for Tagging component */
+
+.main__tagging{
+  padding:1%;
+}
+
+#tag-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#tag-form fieldset {
+  /* Give the fieldset some space between the borders and the fields. */
+  padding: 1rem 1.5rem 1rem 1rem;
+}
+
+
+/* ### TODO ### Styles for Discovery component */
+
+.main__discovery{
+  padding: 1%;
+}
+
+.discovery__wrapper{
+  margin-top:1%;
+  display: grid;
+  /* Scale the list and the map according to available space. */
+  grid-template-columns: minmax(calc(25% - 1rem), calc(33.33% - 1rem)) minmax(calc(50% - 1rem), auto);
+  justify-content: space-between;
+  gap: 1rem; /* Minimum space between the columns. */
+}
+
+
+.discovery__search fieldset {
+  /* Give the fieldset some space between the borders and the fields. */
+  padding: 1rem 1.5rem 1rem 1rem;
+}
+
+.discovery__search fieldset button {
+  /* Add additional space above discovery button, because of hidden input fields. */
+  margin-top: 1rem;
+}
+
+
+li{
+  /* Remove List Styles. */
+  list-style: none;
+  /* Change font styling. */
+  font-weight: bold;
+  color: var(--link-color);
+  background-color: var(--background-color);
+  border: solid 1px var(--border-color);
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.discovery__map {
+  padding: 1rem;
+}
+
+#mapView {
+  /* Scaling of the map does not work properly yet. */
+  display: block; 
+  /* height: auto; */
+  /* width: 100%; */
+  height: minmax(40vh, 100%);
+}
+
+
+/* ### TODO ### Styles for Footer Component */
+footer {
+  height: minmax(auto, calc(16.66% - 1rem));
+  background-color: var(--background-color);
+  /* Position items to the left of the footer and in the middle for the height. */
+  justify-content: left;
+  align-items: center;
+  /* Create some space between the left border and the item. */
+  padding: 2rem;
+  border-top: solid 1px var(--border-color);
+}
+
+/* ### TODO ### Media Queries */
+/* ... your code here ... */
+@media only screen and (max-width: 850px) {
+  main, .discovery__wrapper{
+    display: flex;
+    flex-direction: column;
+  }
+  .row > *{
+    width: 100%;
+    padding: 2%;
+  }
+
+  .discovery__taglist, .discovery__results, #map{
+    width: 100%;
+    margin-inline: 0;
+  }
+
+  input[type="text"], button[type="submit"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    height: 2.5rem;
+    width: 90%;
+    padding: 0.5rem 0.5rem;
+  }
+} 
