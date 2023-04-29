@@ -31,18 +31,35 @@ class GeoTag {
     }
 
     // Getter methods
+    
+    /**
+     * Getter method for the name of the GeoTag.
+     * @return {string} the name of the GeoTag.
+     */
     get getName() {
         return this.#name;
     }
 
+    /**
+     * Getter method for the latitude of the GeoTag.
+     * @return {number} the latitude of the GeoTag.
+     */
     get getLatitude() {
         return this.#latitude;
     }
 
+    /**
+     * Getter method for the longitude of the GeoTag.
+     * @return {number} the longitude of the GeoTag.
+     */
     get getLongitude() {
         return this.#longitude;
     }
 
+    /**
+     * Getter method for the hashtag of the GeoTag.
+     * @return {string} the hashtag of the GeoTag.
+     */
     get getTag() {
         return this.#tag;
     }
