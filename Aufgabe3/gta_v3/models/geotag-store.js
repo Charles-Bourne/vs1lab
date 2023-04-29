@@ -1,5 +1,7 @@
 // File origin: VS1LAB A3
 
+const GeoTagExamples = require("./geotag-examples");
+
 /**
  * This script is a template for exercise VS1lab/Aufgabe3
  * Complete all TODOs in the code documentation.
@@ -25,8 +27,22 @@
  */
 class InMemoryGeoTagStore{
 
-
+    
     #currentTags = [];
+
+    /**
+     * Generate a GeoTagStore with the example tags from geotag-examples
+     */
+    InMemoryGeoTagStore() {
+        let examples = new(GeoTagExamples);
+        let exampleList = examples.tagList();
+
+        for (let ex of exampleList) {
+            // let myTag = new GeoTag(ex[0], ex[1], ex[2], ex[3]);
+            // this.#currentTags.push(myTag);
+            this.#currentTags.push(new GeoTag(ex[0], ex[1], ex[2], ex[3]));
+        }
+    }
 
 
     // Provide a method 'addGeoTag' to add a geotag to the store.
@@ -43,11 +59,6 @@ class InMemoryGeoTagStore{
         while(this.#currentTags[index].getName() != geoTagName) {
             index++;
         }
-        // for (let i=0; i<this.#currentTags.length; i++) {
-        //     if(this.#currentTags[i].getName() == geoTagName){
-        //         break;
-        //     }
-        // }
 
         // Split the array into the part before the Geotag and the part after and concatenate
         // those two halves. We are cutting out the element thatshould be removed,
