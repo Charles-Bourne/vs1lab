@@ -10,9 +10,46 @@
  * GeoTag objects should contain at least all fields of the tagging form.
  */
 class GeoTag {
+    // Declare private parametes
+    #name = '';
+    #latitude = 0;
+    #longitude = 0;
+    #tag = '';
 
-    // TODO: ... your code here ...
+    /**
+     * Generate a GeoTag for the specified parameters.
+     * @param {string} name The name of the GeoTag
+     * @param {number} latitude The GeoTags latitude
+     * @param {number} longitude The mGeoTags longitude
+     * @param {string} tag The GeoTags hashtag
+     */
+    GeoTag(name, latitude, longitude, tag) {
+        this.#name = name;
+        this.#latitude = latitude;
+        this.#longitude = longitude;
+        this.#tag = tag;
+    }
+
+    // Getter methods
+    get getName() {
+        return this.#name;
+    }
+
+    get getLatitude() {
+        return this.#latitude;
+    }
+
+    get getLongitude() {
+        return this.#longitude;
+    }
+
+    get getTag() {
+        return this.#tag;
+    }
     
 }
+
+//['Castle', 49.013790, 8.404435, '#sight']
+// name, latitute, longitute, tag
 
 module.exports = GeoTag;
