@@ -74,6 +74,7 @@ class InMemoryGeoTagStore{
 
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // Note: need to find out how the location is given into the function. Meaning if it is an array etc.
 
 
     // Provide a method 'getNearbyGeoTags' that returns all geotags in the proximity of a location.
