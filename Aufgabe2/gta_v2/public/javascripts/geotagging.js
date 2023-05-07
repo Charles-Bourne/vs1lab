@@ -105,29 +105,18 @@ class MapManager {
 // ... your code here ...
 function updateLocation() {
     try{
-        LocationHelper.findLocation((locationHelper) => {
-            //Get coordinates from Locationhelper
-            let latitude = locationHelper.latitude;
-            let longitude = locationHelper.longitude;
+        
+        LocationHelper.findLocation(function (locationHelper) {
+            //Get coordinates from locationHelper
 
             //Get input elements from Tagging container
-            let tagging_latitude_element = document.getElementById("latitude");
-            let tagging_longitude_element = document.getElementById("longitude");
 
             //Get input elements from Discovery container
-            let discovery_latitude_element = document.getElementById("discovery_latitude");
-            let discovery_longitude_element = document.getElementById("discovery_longitude");
 
             //Set input elements
-            tagging_latitude_element.setAttribute("value",latitude);
-            tagging_longitude_element.setAttribute("value",longitude);
-            discovery_latitude_element.setAttribute("value",latitude);
-            discovery_longitude_element.setAttribute("value",longitude);
 
             //Map generation
-            let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, [], 16);
-            let map_element = document.getElementById("mapView");
-            map_element.setAttribute("src",newMapURL)
+            //API Key = "0kxBbT8geCAawUpZoWmJT2RJehiouJBN"
         });
 
     }
@@ -138,6 +127,5 @@ function updateLocation() {
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    updateLocation();
-    //alert("Please change the script 'geotagging.js'");
+    alert("Please change the script 'geotagging.js'");
 });
