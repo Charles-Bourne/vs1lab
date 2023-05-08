@@ -108,14 +108,29 @@ function updateLocation() {
         
         LocationHelper.findLocation(function (locationHelper) {
             //Get coordinates from locationHelper
+            let latitude = locationHelper.latitude();
+            let longitude = locationHelper.longitude();
 
             //Get input elements from Tagging container
+            let taggingLatitude = document.getElementById("latitude");
+            let taggingLongtitude = document.getElementById("longtitude");
 
             //Get input elements from Discovery container
+            let discoveryLatitude = document.getElementById("discovery_latitude");
+            let discoveryLongtitude = document.getElementById("discovery_longtitude");
 
             //Set input elements
+            taggingLatitude.setAttribute("value", latitude);
+            taggingLongtitude.setAttribute("value", longitude);
+            discoveryLatitude.setAttribute("value", latitude);
+            discoveryLongtitude.setAttribute("value", longitude);
 
             //Map generation
+            
+            let MapManager = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN");
+            let newURL = MapManager.getMapUrl(latitude, longitude, [] , 10);
+            document.getElementById("mapView").setAttribute("src", newURL);
+    
             //API Key = "0kxBbT8geCAawUpZoWmJT2RJehiouJBN"
         });
 
@@ -127,5 +142,6 @@ function updateLocation() {
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    alert("Please change the script 'geotagging.js'");
+    updateLocation();
+    // alert("Please change the script 'geotagging.js'");
 });
