@@ -67,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
     scriptsToLoad.forEach((src) => {
         let script = document.createElement('script');
         script.src = src;
-        
         script.onload = () => {
             numLoadedScripts++;
             if (numLoadedScripts === scriptsToLoad.length) {
