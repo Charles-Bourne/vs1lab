@@ -60,7 +60,15 @@ router.get('/', (req, res) => {
  * by radius around a given location.
  */
 
-// TODO: ... your code here ...
+router.post('/tagging', (req, res) => {
+  const { lat, lng, name } = req.body;
+  const newGeoTag = { lat, lng, name };
+
+  GeoTagStore.addGeoTag(newGeoTag);
+  const nearbyGeoTags = GeoTagStore.nearbyGeoTags(newGeoTag.lat, newGeoTag.lng);
+
+  res.render('nearby_geotags.ejs', { nearbyGeoTags });
+});
 
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -78,6 +86,11 @@ router.get('/', (req, res) => {
  * by radius and keyword.
  */
 
-// TODO: ... your code here ...
+router.post('/discovery', (req, res) => {
+  const { lat, lon, searchTerm } = req.body;
+  const geotags = GeoTagStore.searchNearbyGeoTags(lat, lon, searchTerm);
+
+  res.render('discovery', { geotags });
+});
 
 module.exports = router;
