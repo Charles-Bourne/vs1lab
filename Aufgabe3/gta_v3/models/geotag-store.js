@@ -73,10 +73,6 @@ class InMemoryGeoTagStore{
     }
 
 
-    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // Note: need to find out how the location is given into the function. Meaning if it is an array etc.
-
-
     // Provide a method 'getNearbyGeoTags' that returns all geotags in the proximity of a location.
     // - The location is given as a parameter.
     // - The proximity is computed by means of a radius around the location.
@@ -87,7 +83,7 @@ class InMemoryGeoTagStore{
      */
     getNearbyGeoTags(location) {
         // Declare size of radius
-        let distance = 3;
+        let distance = 10;
         // Create empty list of GeoTags
         let nearbyGeoTags = [];
 
@@ -96,8 +92,7 @@ class InMemoryGeoTagStore{
            
             // Calculate the distance of the locations via the following calculation:
             // d = sqrt((x2​−x1​)^2 + (y2​−y1​)^2)
-            // Assuming that location[0] is the latitude and location[1] is the longitude
-            let d = sqrt(pow((element.getLatitude()-location[0]), 2) + pow((element.getLongitude()-location[1]), 2));
+            let d = sqrt(pow((element.getLatitude()-location.getLatitude()), 2) + pow((element.getLongitude()-location.getLongitude()), 2));
             if (d <= distance) {
                 nearbyGeoTags.push(element);
             }
