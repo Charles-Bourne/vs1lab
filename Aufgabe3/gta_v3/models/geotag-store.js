@@ -27,16 +27,17 @@ const GeoTagExamples = require("./geotag-examples");
  */
 class InMemoryGeoTagStore{
 
-    
+    // Use private array
     #currentTags = [];
 
     /**
      * Generate a GeoTagStore with the example tags from geotag-examples
      */
     InMemoryGeoTagStore() {
-        let examples = new(GeoTagExamples);
-        let exampleList = examples.tagList();
+        // Get Examplelist from GeoTagExamples 
+        const exampleList = new GeoTagExamples().tagList();
 
+        // Read the examples into the currentTags-Array
         for (let ex of exampleList) {
             this.#currentTags.push(new GeoTag(ex[0], ex[1], ex[2], ex[3]));
         }
@@ -67,7 +68,7 @@ class InMemoryGeoTagStore{
         }
 
         // Split the array into the part before the Geotag and the part after and concatenate
-        // those two halves. We are cutting out the element thatshould be removed,
+        // those two halves. We are cutting out the element that should be removed,
         this.#currentTags = this.#currentTags.slice(0, index).concat(this.#currentTags.slice(index+1));
 
     }
@@ -96,9 +97,9 @@ class InMemoryGeoTagStore{
             if (d <= distance) {
                 nearbyGeoTags.push(element);
             }
-
-            return nearbyGeoTags;
         }
+
+        return nearbyGeoTags;
 
     }
 
