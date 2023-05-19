@@ -61,15 +61,17 @@ router.get('/', (req, res) => {
  */
 
 router.post('/tagging', (req, res) => {
-  const { lat, lng, name } = req.body;
-  const newGeoTag = { lat, lng, name };
+  const { latitude, longitude, name, hashtag } = req.body;
+  const newGeoTag = {  latitude, longitude, name, hashtag };
 
   const myStore = new GeoTagStore();
 
   myStore.addGeoTag(newGeoTag);
-  const nearbyGeoTags = myStore.getNearbyGeoTags(newGeoTag.lat, newGeoTag.lng);
 
-  res.render('nearby_geotags.ejs', { nearbyGeoTags });
+  const location = {latitude, longitude}
+  const taglist = myStore.getNearbyGeoTags(location);
+
+  res.render('index.ejs', { taglist });
 });
 
 /**
@@ -89,10 +91,14 @@ router.post('/tagging', (req, res) => {
  */
 
 router.post('/discovery', (req, res) => {
-  const { lat, lon, searchTerm } = req.body;
-  const geotags = GeoTagStore.searchNearbyGeoTags(lat, lon, searchTerm);
+  const { latitude, longitude,  searchTerm } = req.body;
+  const location = {latitude, longitude}
 
-  res.render('discovery', { geotags });
+  const myStore = new GeoTagStore();
+
+  const taglist = myStore.searchNearbyGeoTags(location, searchTerm);
+
+  res.render('index.ejs', { taglist });
 });
 
 module.exports = router;

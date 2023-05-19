@@ -93,7 +93,7 @@ class InMemoryGeoTagStore{
            
             // Calculate the distance of the locations via the following calculation:
             // d = sqrt((x2​−x1​)^2 + (y2​−y1​)^2)
-            let d = sqrt(pow((element.getLatitude()-location.getLatitude()), 2) + pow((element.getLongitude()-location.getLongitude()), 2));
+            let d = Math.sqrt(Math.pow((location.latitude, 2) + Math.pow(location.longitude, 2)));
             if (d <= distance) {
                 nearbyGeoTags.push(element);
             }
