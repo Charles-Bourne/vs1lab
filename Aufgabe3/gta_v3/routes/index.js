@@ -64,8 +64,10 @@ router.post('/tagging', (req, res) => {
   const { lat, lng, name } = req.body;
   const newGeoTag = { lat, lng, name };
 
-  GeoTagStore.addGeoTag(newGeoTag);
-  const nearbyGeoTags = GeoTagStore.nearbyGeoTags(newGeoTag.lat, newGeoTag.lng);
+  const myStore = new GeoTagStore();
+
+  myStore.addGeoTag(newGeoTag);
+  const nearbyGeoTags = myStore.getNearbyGeoTags(newGeoTag.lat, newGeoTag.lng);
 
   res.render('nearby_geotags.ejs', { nearbyGeoTags });
 });
