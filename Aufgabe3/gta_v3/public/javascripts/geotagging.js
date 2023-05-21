@@ -26,6 +26,9 @@ function updateLocation() {
         let discovery_latitude_element = document.getElementById("discovery_latitude");
         let discovery_longitude_element = document.getElementById("discovery_longitude");
 
+        //Get map element
+        let map_element = document.getElementById("mapView");
+
         if (isCoordinates(tagging_latitude_element.getAttribute("value"))
             && isCoordinates(tagging_longitude_element.getAttribute("value")) 
             && isCoordinates(discovery_latitude_element.getAttribute("value")) 
@@ -46,8 +49,9 @@ function updateLocation() {
             discovery_longitude_element.setAttribute("value",longitude);
 
             //Map generation
-            let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, [], 16);
-            let map_element = document.getElementById("mapView");
+            let taglist_json = map_element.getAttribute("data-tags");
+            let GeoTagsArray = JSON.parse(taglist_json);
+            let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, GeoTagsArray, 16);
             map_element.setAttribute("src",newMapURL)
         });
     }
