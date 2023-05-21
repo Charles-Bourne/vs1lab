@@ -84,7 +84,7 @@ class InMemoryGeoTagStore{
      */
     getNearbyGeoTags(location) {
         // Declare size of radius
-        let distance = 10;
+        let distance = 500;
         // Create empty list of GeoTags
         let nearbyGeoTags = [];
 
@@ -116,7 +116,7 @@ class InMemoryGeoTagStore{
     searchNearbyGeoTags(location, keyword) {
 
         // Get the tags that are closeby        
-        let nearbyTags = getNearbyGeoTags(location);
+        let nearbyTags = this.getNearbyGeoTags(location);
 
         // Create resultArray
         let matchingTags = [];
