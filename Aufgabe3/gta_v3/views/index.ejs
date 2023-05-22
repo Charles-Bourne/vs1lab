@@ -60,7 +60,7 @@
           <div class="discovery__taglist">
             <ul class="discovery__results" id="discoveryResults">
                 <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                    <li><%= gtag.getName %> ( <%= gtag.getLatitude %>,<%= gtag.getLongitude %>) <%= gtag.getTag %> </li>
+                    <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.tag %> </li>
                 <% }); %>
             </ul>
           </div>

@@ -37,7 +37,7 @@ class GeoTag {
      * Getter method for the name of the GeoTag.
      * @return {string} the name of the GeoTag.
      */
-    get getName() {
+    get name() {
         return this.#name;
     }
 
@@ -45,7 +45,7 @@ class GeoTag {
      * Getter method for the latitude of the GeoTag.
      * @return {number} the latitude of the GeoTag.
      */
-    get getLatitude() {
+    get latitude() {
         return this.#latitude;
     }
 
@@ -53,7 +53,7 @@ class GeoTag {
      * Getter method for the longitude of the GeoTag.
      * @return {number} the longitude of the GeoTag.
      */
-    get getLongitude() {
+    get longitude() {
         return this.#longitude;
     }
 
@@ -61,10 +61,17 @@ class GeoTag {
      * Getter method for the hashtag of the GeoTag.
      * @return {string} the hashtag of the GeoTag.
      */
-    get getTag() {
+    get tag() {
         return this.#tag;
     }
-    
+
+    toJSON() {
+        // Definiere eine benutzerdefinierte JSON-Repräsentation
+        return {
+            latitude: this.latitude,
+            longitude: this.longitude
+        };
+    }
 }
 
 //['Castle', 49.013790, 8.404435, '#sight']
