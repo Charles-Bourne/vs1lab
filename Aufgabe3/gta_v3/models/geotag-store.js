@@ -43,7 +43,7 @@ class InMemoryGeoTagStore{
         }
     }
 
-    getAllGeoTags() {
+    get AllGeoTags() {
         return this.#currentTags;
     }
 
