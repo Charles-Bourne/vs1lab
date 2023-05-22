@@ -43,6 +43,10 @@ class InMemoryGeoTagStore{
         }
     }
 
+    getAllGeoTags() {
+        return this.#currentTags;
+    }
+
 
     // Provide a method 'addGeoTag' to add a geotag to the store.
     /**
