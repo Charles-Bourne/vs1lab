@@ -67,8 +67,6 @@ router.post('/tagging', (req, res) => {
   const { latitude, longitude, name, hashtag } = req.body;
   const newGeoTag = {  latitude, longitude, name, hashtag };
 
-  const myStore = new GeoTagStore();
-
   myStore.addGeoTag(newGeoTag);
 
   const location = {latitude, longitude}
@@ -96,8 +94,6 @@ router.post('/tagging', (req, res) => {
 router.post('/discovery', (req, res) => {
   const { latitude, longitude,  searchTerm } = req.body;
   const location = {latitude, longitude}
-
-  const myStore = new GeoTagStore();
 
   const taglist = myStore.searchNearbyGeoTags(location, searchTerm);
 
