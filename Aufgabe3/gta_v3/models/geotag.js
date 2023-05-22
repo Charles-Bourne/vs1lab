@@ -10,6 +10,7 @@
  * GeoTag objects should contain at least all fields of the tagging form.
  */
 class GeoTag {
+
     // Declare private parametes
     #name = '';
     #latitude = 0;
@@ -23,7 +24,7 @@ class GeoTag {
      * @param {number} longitude The mGeoTags longitude
      * @param {string} tag The GeoTags hashtag
      */
-    GeoTag(name, latitude, longitude, tag) {
+    constructor (name, latitude, longitude, tag) {
         this.#name = name;
         this.#latitude = latitude;
         this.#longitude = longitude;

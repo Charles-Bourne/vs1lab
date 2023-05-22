@@ -35,13 +35,14 @@ class InMemoryGeoTagStore{
     /**
      * Generate a GeoTagStore with the example tags from geotag-examples
      */
-    InMemoryGeoTagStore() {
+    constructor() {
         // Get Examplelist from GeoTagExamples 
         const exampleList =  GeoTagExamples.tagList;
 
         // Read the examples into the currentTags-Array
         for (let ex of exampleList) {
-            this.#currentTags.push(new GeoTag(ex[0], ex[1], ex[2], ex[3]));
+            //this.addGeoTag(new GeoTag(ex[0], ex[1], ex[2], ex[3]))
+            this.addGeoTag(new GeoTag(ex[0], ex[1], ex[2], ex[3]))
         }
     }
 
