@@ -2,6 +2,8 @@
 
 const GeoTagExamples = require("./geotag-examples");
 
+const GeoTag = require('../models/geotag');
+
 /**
  * This script is a template for exercise VS1lab/Aufgabe3
  * Complete all TODOs in the code documentation.
@@ -35,7 +37,7 @@ class InMemoryGeoTagStore{
      */
     InMemoryGeoTagStore() {
         // Get Examplelist from GeoTagExamples 
-        const exampleList = new GeoTagExamples().tagList();
+        const exampleList =  GeoTagExamples.tagList;
 
         // Read the examples into the currentTags-Array
         for (let ex of exampleList) {
