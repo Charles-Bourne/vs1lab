@@ -46,12 +46,14 @@ class InMemoryGeoTagStore{
         }
     }
 
+    /**
+     * Getter-Mehtod for the private currentTags array.
+     */
     get AllGeoTags() {
         return this.#currentTags;
     }
 
 
-    // Provide a method 'addGeoTag' to add a geotag to the store.
     /**
      * Adds a GeoTag to the currentTags array.
      * @param {GeoTag} geoTag to be added to the store.
@@ -61,7 +63,6 @@ class InMemoryGeoTagStore{
     }
 
 
-    // Provide a method 'removeGeoTag' to delete geo-tags from the store by name.
     /**
      * Delete GeoTags from the store by name.
      * @param {string} geoTagName the name of the GeoTag to be deleted from the store
@@ -81,11 +82,9 @@ class InMemoryGeoTagStore{
     }
 
 
-    // Provide a method 'getNearbyGeoTags' that returns all geotags in the proximity of a location.
-    // - The location is given as a parameter.
-    // - The proximity is computed by means of a radius around the location.
     /**
-     * Return the Tags that are closeby to the given location
+     * Returns all geotags in the proximity of a location.
+     * The proximity is computed by means of a radius around the location.
      * @param {*} location The GeoTags should be close to that location.
      * @returns {} An array of the Tags that are close to the given location
      */
@@ -111,14 +110,12 @@ class InMemoryGeoTagStore{
     }
 
 
-    // Provide a method 'searchNearbyGeoTags' that returns all geotags in the proximity of a location that match a keyword.
-    // - The proximity constrained is the same as for 'getNearbyGeoTags'.
-    // - Keyword matching should include partial matches from name or hashtag fields. 
     /**
      * Searh the Tags closeby that match the given keyword
+     * The keyword matching should include partial matches from name or hashtag fields. 
      * @param {*} location The GeoTags should be close to that location.
      * @param {string} keyword that should be included in either the name or the hashtag of the GeoTag.
-     * @returns An array with the GeoTags that are close to the location and match the keyword.
+     * @returns An array with the GeoTags in the proximity of a location that match a keyword.
      */
     searchNearbyGeoTags(location, keyword) {
 
