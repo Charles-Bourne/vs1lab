@@ -90,7 +90,7 @@ class InMemoryGeoTagStore{
 
         const distance = 50;
 
-        console.log('Distance: ' + tagDistance);
+        console.log('Distance: ' + distance);
         return distance;
     }
 
