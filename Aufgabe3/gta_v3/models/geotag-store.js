@@ -3,6 +3,7 @@
 const GeoTagExamples = require("./geotag-examples");
 
 const GeoTag = require('../models/geotag');
+const Console = require("console");
 
 /**
  * This script is a template for exercise VS1lab/Aufgabe3
@@ -81,32 +82,45 @@ class InMemoryGeoTagStore{
 
     }
 
+    getDistanceBetween(locationOne, locationTwo) {
+        const lat1 = locationOne.latitude;
+        const lon1 = locationOne.longitude;
+        const lat2 = locationTwo.latitude;
+        const lon2 = locationTwo.longitude;
+
+        const distance = 50;
+
+        return distance;
+    }
+
 
     /**
      * Returns all geotags in the proximity of a location.
      * The proximity is computed by means of a radius around the location.
      * @param {*} location The GeoTags should be close to that location.
-     * @returns {} An array of the Tags that are close to the given location
+     * @returns {array} An array of the Tags that are close to the given location
      */
     getNearbyGeoTags(location) {
-        // Declare size of radius
-        let distance = 500;
+        // Declare size of radius - 50km for function test
+        let maxDistance = 50000;
         // Create empty list of GeoTags
         let nearbyGeoTags = [];
 
         // Check for each of Tag in the currentlist
-        for (const element of this.#currentTags) {
-           
+        for (const el of this.#currentTags) {
+
             // Calculate the distance of the locations via the following calculation:
             // d = sqrt((x2​−x1​)^2 + (y2​−y1​)^2)
-            let d = Math.sqrt(Math.pow((location.latitude, 2) + Math.pow(location.longitude, 2)));
-            if (d <= distance) {
-                nearbyGeoTags.push(element);
+            // let d = Math.sqrt(         Math.pow(     (location.latitude, 2)+Math.pow(location.longitude, 2)        )              );
+
+            const tagDistance = this.getDistanceBetween({latitude: el.latitude, longitude: el.longitude}, {latitude: location.latitude, longitude: location.longitude});
+            if (tagDistance <= maxDistance) {
+                nearbyGeoTags.push(el);
             }
+            console.log('Distance: ' + tagDistance);
         }
 
         return nearbyGeoTags;
-
     }
 
 
@@ -118,19 +132,17 @@ class InMemoryGeoTagStore{
      * @returns An array with the GeoTags in the proximity of a location that match a keyword.
      */
     searchNearbyGeoTags(location, keyword) {
-
-        // Get the tags that are closeby        
+            // Get the tags that are closeby
         let nearbyTags = this.getNearbyGeoTags(location);
 
         // Create resultArray
         let matchingTags = [];
 
-        // check the closeby Tags if they fit the keyword
-        for (const el of nearbyTags) {
-            if (el.tag.includes(keyword) || el.name.includes(keyword)) {
-                matchingTags.push(el);
-            }
-        }
+        matchingTags = nearbyTags.filter((tag) => {
+            const nameMatch = tag.name.toLowerCase().includes(keyword && keyword.toLowerCase());
+            const tagMatch = tag.tag.toLowerCase().includes(keyword && keyword.toLowerCase());
+            return nameMatch || tagMatch;
+        });
 
         return matchingTags;
     }
