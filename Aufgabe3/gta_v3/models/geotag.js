@@ -69,7 +69,8 @@ class GeoTag {
         // Definiere eine benutzerdefinierte JSON-Repräsentation
         return {
             latitude: this.latitude,
-            longitude: this.longitude
+            longitude: this.longitude,
+            name: this.name
         };
     }
 }
