@@ -90,6 +90,7 @@ class InMemoryGeoTagStore{
 
         const distance = 50;
 
+        console.log('Distance: ' + tagDistance);
         return distance;
     }
 
@@ -108,7 +109,6 @@ class InMemoryGeoTagStore{
 
         // Check for each of Tag in the currentlist
         for (const el of this.#currentTags) {
-
             // Calculate the distance of the locations via the following calculation:
             // d = sqrt((x2​−x1​)^2 + (y2​−y1​)^2)
             // let d = Math.sqrt(         Math.pow(     (location.latitude, 2)+Math.pow(location.longitude, 2)        )              );
@@ -117,7 +117,6 @@ class InMemoryGeoTagStore{
             if (tagDistance <= maxDistance) {
                 nearbyGeoTags.push(el);
             }
-            console.log('Distance: ' + tagDistance);
         }
 
         return nearbyGeoTags;
