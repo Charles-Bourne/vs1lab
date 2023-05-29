@@ -93,7 +93,7 @@ router.post('/tagging', (req, res) => {
 
 router.post('/discovery', (req, res) => {
   const { latitude, longitude,  searchterm } = req.body;
-  const location = {latitude, longitude}
+  const location = {latitude: latitude, longitude: longitude}
 
   const taglist = myStore.searchNearbyGeoTags(location, searchterm);
 
