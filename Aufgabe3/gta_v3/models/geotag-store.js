@@ -71,7 +71,7 @@ class InMemoryGeoTagStore{
 
         let index = 0;
         // Count up "index" until the index of the geoTag with the name was found.
-        while(this.#currentTags[index].getName() != geoTagName) {
+        while(this.#currentTags[index].name !== geoTagName) {
             index++;
         }
 
