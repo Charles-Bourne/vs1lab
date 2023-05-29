@@ -127,7 +127,7 @@ class InMemoryGeoTagStore{
 
         // check the closeby Tags if they fit the keyword
         for (const el of nearbyTags) {
-            if (el.getTag().includes(keyword) || el.getName().includes(keyword)) {
+            if (el.tag.includes(keyword) || el.name.includes(keyword)) {
                 matchingTags.push(el);
             }
         }
