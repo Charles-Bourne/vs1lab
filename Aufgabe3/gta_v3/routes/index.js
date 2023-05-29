@@ -69,7 +69,7 @@ router.post('/tagging', (req, res) => {
 
   myStore.addGeoTag(newGeoTag);
 
-  const location = {latitude, longitude}
+  const location = {latitude: latitude, longitude: longitude};
   const taglist = myStore.getNearbyGeoTags(location);
 
   res.render('index.ejs', { taglist });
