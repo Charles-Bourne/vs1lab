@@ -82,6 +82,11 @@ class InMemoryGeoTagStore{
 
     }
 
+    /**
+     * Transforms x to its radians equivalent.
+     * @param {number} x 
+     * @returns radians 
+     */
     toRadian(x) {
         return x * Math.PI / 180.0;
     }
@@ -115,7 +120,7 @@ class InMemoryGeoTagStore{
         let distance = 6371 * c; // 6371 = radius of earth
 
         // Debugging 
-        console.log('Distance: ' + distance);
+        //console.log('Distance: ' + distance);
         
         return distance;
     }
@@ -129,7 +134,7 @@ class InMemoryGeoTagStore{
      */
     getNearbyGeoTags(location) {
         // Declare size of radius in km - 50km for function test
-        let maxDistance = 2;
+        let maxDistance = 5;
         // Create empty list of GeoTags
         let nearbyGeoTags = [];
 
@@ -137,8 +142,8 @@ class InMemoryGeoTagStore{
         for (const el of this.#currentTags) {
 
             // Debugging 
-            console.log('--------------------------------------------');
-            console.log('name of tag: ' + el.name);
+            //console.log('--------------------------------------------');
+            //console.log('name of tag: ' + el.name);
 
             // Calculate the distance of the current tag and the current location of the user
             const tagDistance = this.getDistanceBetween({latitude: el.latitude, longitude: el.longitude}, {latitude: location.latitude, longitude: location.longitude});
@@ -160,7 +165,7 @@ class InMemoryGeoTagStore{
      * @returns An array with the GeoTags in the proximity of a location that match a keyword.
      */
     searchNearbyGeoTags(location, keyword) {
-            // Get the tags that are closeby
+        // Get the tags that are closeby
         let nearbyTags = this.getNearbyGeoTags(location);
 
         // Create resultArray
