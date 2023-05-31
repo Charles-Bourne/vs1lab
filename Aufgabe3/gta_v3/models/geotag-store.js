@@ -82,15 +82,41 @@ class InMemoryGeoTagStore{
 
     }
 
+    toRadian(x) {
+        return x * Math.PI / 180.0;
+    }
+
     getDistanceBetween(locationOne, locationTwo) {
-        const lat1 = locationOne.latitude;
+        let lat1 = locationOne.latitude;
         const lon1 = locationOne.longitude;
-        const lat2 = locationTwo.latitude;
+        let lat2 = locationTwo.latitude;
         const lon2 = locationTwo.longitude;
 
-        const distance = 50;
+        /* 
+            Use the haversine formula:
+        */
 
+        // Distance between the latitudes and longitudes:
+        let dLat = (lat2 - lat1) * Math.PI / 180.0;
+        let dLon = (lon2 - lon1) * Math.PI / 180.0;
+           
+        // Convert them to radians:
+        lat1 = (lat1) * Math.PI / 180.0;
+        lat2 = (lat2) * Math.PI / 180.0;
+         
+        // Apply formular
+        let a = Math.pow(Math.sin(dLat / 2), 2) +
+                   Math.pow(Math.sin(dLon / 2), 2) *
+                   Math.cos(lat1) *
+                   Math.cos(lat2);
+
+        let c = 2 * Math.asin(Math.sqrt(a));
+
+        let distance = 6371 * c; // 6371 = radius of earth
+
+        // Debugging 
         console.log('Distance: ' + distance);
+        
         return distance;
     }
 
@@ -102,18 +128,21 @@ class InMemoryGeoTagStore{
      * @returns {array} An array of the Tags that are close to the given location
      */
     getNearbyGeoTags(location) {
-        // Declare size of radius - 50km for function test
-        let maxDistance = 50000;
+        // Declare size of radius in km - 50km for function test
+        let maxDistance = 2;
         // Create empty list of GeoTags
         let nearbyGeoTags = [];
 
         // Check for each of Tag in the currentlist
         for (const el of this.#currentTags) {
-            // Calculate the distance of the locations via the following calculation:
-            // d = sqrt((x2​−x1​)^2 + (y2​−y1​)^2)
-            // let d = Math.sqrt(         Math.pow(     (location.latitude, 2)+Math.pow(location.longitude, 2)        )              );
 
+            // Debugging 
+            console.log('--------------------------------------------');
+            console.log('name of tag: ' + el.name);
+
+            // Calculate the distance of the current tag and the current location of the user
             const tagDistance = this.getDistanceBetween({latitude: el.latitude, longitude: el.longitude}, {latitude: location.latitude, longitude: location.longitude});
+            // Add tag to nearbyGeoTags list if distance under maxDistance
             if (tagDistance <= maxDistance) {
                 nearbyGeoTags.push(el);
             }
