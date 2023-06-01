@@ -28,15 +28,18 @@ function updateLocation() {
 
         //Get map element
         let map_element = document.getElementById("mapView");
+        let tagging_location = {latitude: tagging_latitude_element.getAttribute("value"), longitude: tagging_longitude_element.getAttribute("value")};
+        let discovery_location = {latitude: discovery_latitude_element.getAttribute("value"), longitude: discovery_longitude_element.getAttribute("value")};
 
-        if (isCoordinates(tagging_latitude_element.getAttribute("value"))
-            && isCoordinates(tagging_longitude_element.getAttribute("value")) 
-            && isCoordinates(discovery_latitude_element.getAttribute("value")) 
-            && isCoordinates(discovery_longitude_element).getAttribute("value")) {
+        if (isCoordinates(tagging_location) && isCoordinates(discovery_location)) {
             console.log("function updateLocation() is aborted. Nothing to do.");
             return;
+        } else {
+            console.log("function updateLocation() run");
         }
-        
+        console.log("tagging_location: " + tagging_location.latitude.toString() + ", " + tagging_location.longitude.toString());
+        console.log("discovery_location: " + discovery_location.latitude.toString() + ", " + discovery_location.longitude.toString());
+
         LocationHelper.findLocation((locationHelper) => {
             //Get coordinates from LocationHelper
             let latitude = locationHelper.latitude;
@@ -60,9 +63,33 @@ function updateLocation() {
     }
 }
 
-function isCoordinates(variable) {
-    const coordinatesRegex = /^(-?[0-9]|[1-8][0-9]|90)\.\d{1,15}$/;
-    return typeof variable === 'string' && coordinatesRegex.test(variable);
+//function isCoordinates(variable) {
+//    const coordinatesRegex = /^(-?[0-9]|[1-8][0-9]|90)\.\d{1,15}$/;
+//    return typeof variable === 'string' && coordinatesRegex.test(variable);
+//}
+
+function isCoordinates(location) {
+    // Check if location is an object
+    if (typeof location !== 'object' || location === null) {
+        return false;
+    }
+    // Check if location has latitude and longitude properties
+    if (!location.hasOwnProperty('latitude') || !location.hasOwnProperty('longitude')) {
+        return false;
+    }
+    // Check that latitude and longitude are numeric values
+    if (typeof location.latitude !== 'number' || typeof location.longitude !== 'number') {
+        return false;
+    }
+
+    if (location.latitude < -90 || location.latitude > 90) {
+        return false;
+    }
+    if (location.longitude < -180 || location.longitude > 180) {
+        return false;
+    }
+
+    return true;
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
