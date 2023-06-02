@@ -36,6 +36,7 @@ function updateLocation() {
             return;
         } else {
             console.log("function updateLocation() run");
+            console.log(isCoordinates(tagging_location).toString() + ", " + isCoordinates(discovery_location));
         }
         console.log("tagging_location: " + tagging_location.latitude.toString() + ", " + tagging_location.longitude.toString());
         console.log("discovery_location: " + discovery_location.latitude.toString() + ", " + discovery_location.longitude.toString());
@@ -77,18 +78,23 @@ function isCoordinates(location) {
     if (!location.hasOwnProperty('latitude') || !location.hasOwnProperty('longitude')) {
         return false;
     }
+
     // Check that latitude and longitude are numeric values
-    if (typeof location.latitude !== 'number' || typeof location.longitude !== 'number') {
+    if ( (typeof parseFloat(location.latitude)) !== 'number'
+        || (typeof parseFloat(location.longitude)) !== 'number'
+        || isNaN(parseFloat(location.latitude))
+        || isNaN(parseFloat(location.longitude)) ) {
         return false;
     }
 
-    if (location.latitude < -90 || location.latitude > 90) {
+    if (parseFloat(location.latitude) < -90 || parseFloat(location.latitude) > 90) {
         return false;
     }
-    if (location.longitude < -180 || location.longitude > 180) {
+    if (parseFloat(location.longitude) < -180 || parseFloat(location.longitude) > 180) {
         return false;
     }
 
+    console.log("Ist Koordinate!")
     return true;
 }
 
@@ -106,5 +112,4 @@ document.addEventListener("DOMContentLoaded", () => {
         };
         document.body.appendChild(script);
     });
-    //alert("Please change the script 'geotagging.js'");
 });
