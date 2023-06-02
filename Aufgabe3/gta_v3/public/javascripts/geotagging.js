@@ -30,19 +30,10 @@ function updateLocation() {
         let map_element = document.getElementById("mapView");
         let tagging_location = {latitude: tagging_latitude_element.getAttribute("value"), longitude: tagging_longitude_element.getAttribute("value")};
         let discovery_location = {latitude: discovery_latitude_element.getAttribute("value"), longitude: discovery_longitude_element.getAttribute("value")};
+        let latitude;
+        let longitude;
 
-        if (isCoordinates(tagging_location) && isCoordinates(discovery_location)) {
-            console.log("function updateLocation() is aborted. Nothing to do.");
-            return;
-        } else {
-            console.log("function updateLocation() run");
-        }
-
-        LocationHelper.findLocation((locationHelper) => {
-            //Get coordinates from LocationHelper
-            let latitude = locationHelper.latitude;
-            let longitude = locationHelper.longitude;
-
+        function updateDOCElements() {
             //Set input elements
             tagging_latitude_element.setAttribute("value",latitude);
             tagging_longitude_element.setAttribute("value",longitude);
@@ -54,7 +45,24 @@ function updateLocation() {
             let GeoTagsArray = JSON.parse(taglist_json);
             let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, GeoTagsArray, 13);
             map_element.setAttribute("src",newMapURL)
-        });
+        }
+
+        if (isCoordinates(tagging_location)) {
+            latitude = tagging_location.latitude;
+            longitude = tagging_location.longitude;
+            updateDOCElements();
+        } else if (isCoordinates(discovery_location)) {
+            latitude = discovery_location.latitude;
+            longitude = discovery_location.longitude;
+            updateDOCElements();
+        } else {
+            LocationHelper.findLocation(  (locationHelper) => {
+                //Get coordinates from LocationHelper
+                latitude = locationHelper.latitude;
+                longitude = locationHelper.longitude;
+                updateDOCElements();
+            });
+        }
     }
     catch(error) {
         alert("error in updateLocation()");
