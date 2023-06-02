@@ -36,10 +36,7 @@ function updateLocation() {
             return;
         } else {
             console.log("function updateLocation() run");
-            console.log(isCoordinates(tagging_location).toString() + ", " + isCoordinates(discovery_location));
         }
-        console.log("tagging_location: " + tagging_location.latitude.toString() + ", " + tagging_location.longitude.toString());
-        console.log("discovery_location: " + discovery_location.latitude.toString() + ", " + discovery_location.longitude.toString());
 
         LocationHelper.findLocation((locationHelper) => {
             //Get coordinates from LocationHelper
@@ -94,7 +91,6 @@ function isCoordinates(location) {
         return false;
     }
 
-    console.log("Ist Koordinate!")
     return true;
 }
 
