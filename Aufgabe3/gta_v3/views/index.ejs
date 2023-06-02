@@ -17,11 +17,7 @@
       <img src="./images/location.png" class="header__image" alt="an image of a map and location" />
       <h1 class="header__title">GeoTagApp</h1>
       <nav class="header__navigation">
-        <a href="#">About</a>
-        |
-        <a href="#">Help</a>
-        |
-        <a href="/">Home</a>
+        <a href="#">About</a> | <a href="#">Help</a> | <a href="/">Home</a>
       </nav>
     </header>
 
@@ -33,10 +29,10 @@
           <fieldset>
             <legend>Add a new GeoTag</legend>
             <label for="latitude">Latitude:</label>
-            <input type="text" id="latitude" name="latitude" value="XXXXXXXXXXX" readonly />
+            <input type="text" id="latitude" name="latitude" value="<%=currentlocation.latitude%>" readonly />
             <br />
             <label for="longitude">Longitude:</label>
-            <input type="text" id="longitude" name="longitude" value="XXXXXXXXXXX" readonly />
+            <input type="text" id="longitude" name="longitude" value="<%=currentlocation.longitude%>" readonly />
             <br />
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" placeholder="e.g. central Berlin" title="Name darf maximal 10 Buchstaben lang sein" />
@@ -57,8 +53,8 @@
             <legend>Search</legend>
             <label for="searchterm">Search term or keywords:</label>
             <input type="text" id="searchterm" name="searchterm" placeholder="e.g. Berlin" required pattern=".{1,50}" />
-            <input type="hidden" id="discovery_latitude" name="latitude" value="XXXXXXXXXXX" />
-            <input type="hidden" id="discovery_longitude" name="longitude" value="XXXXXXXXXXX" />
+            <input type="hidden" id="discovery_latitude" name="latitude" value="<%=currentlocation.latitude%>" />
+            <input type="hidden" id="discovery_longitude" name="longitude" value="<%=currentlocation.longitude%>" />
             <button type="submit" value="Search">Search</button>
           </fieldset>
         </form>

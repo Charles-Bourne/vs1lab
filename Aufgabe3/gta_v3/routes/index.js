@@ -44,8 +44,9 @@ const myStore = new GeoTagStore();
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
   const defaultTaglist = myStore.AllGeoTags;
+  const location = {latitude: "XXXXXXXXXXX", longitude: "XXXXXXXXXXX"};
 
-  res.render('index', { taglist: defaultTaglist })
+  res.render('index', { taglist: defaultTaglist, currentlocation: location })
 });
 
 /**
@@ -66,13 +67,12 @@ router.get('/', (req, res) => {
 router.post('/tagging', (req, res) => {
   const { latitude, longitude, name, hashtag } = req.body;
   const newGeoTag = new GeoTag(name, latitude, longitude, hashtag);
+  const location = {latitude: latitude, longitude: longitude};
 
   myStore.addGeoTag(newGeoTag);
-
-  const location = {latitude: latitude, longitude: longitude};
   const taglist = myStore.getNearbyGeoTags(location);
 
-  res.render('index.ejs', { taglist });
+  res.render('index.ejs', { taglist, currentlocation: location });
 });
 
 /**
@@ -93,11 +93,11 @@ router.post('/tagging', (req, res) => {
 
 router.post('/discovery', (req, res) => {
   const { latitude, longitude,  searchterm } = req.body;
-  const location = {latitude: latitude, longitude: longitude}
+  const location = {latitude: latitude, longitude: longitude};
 
   const taglist = myStore.searchNearbyGeoTags(location, searchterm);
 
-  res.render('index.ejs', { taglist });
+  res.render('index.ejs', { taglist, currentlocation: location });
 });
 
 module.exports = router;
