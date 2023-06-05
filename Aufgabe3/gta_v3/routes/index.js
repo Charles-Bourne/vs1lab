@@ -40,7 +40,6 @@ const myStore = new GeoTagStore();
  *
  * As response, the ejs-template is rendered without geotag objects.
  */
-
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
   const defaultTaglist = myStore.AllGeoTags;
@@ -63,7 +62,6 @@ router.get('/', (req, res) => {
  * To this end, "GeoTagStore" provides a method to search geotags 
  * by radius around a given location.
  */
-
 router.post('/tagging', (req, res) => {
   const { latitude, longitude, name, hashtag } = req.body;
   const newGeoTag = new GeoTag(name, latitude, longitude, hashtag);
@@ -90,7 +88,6 @@ router.post('/tagging', (req, res) => {
  * To this end, "GeoTagStore" provides methods to search geotags 
  * by radius and keyword.
  */
-
 router.post('/discovery', (req, res) => {
   const { latitude, longitude,  searchterm } = req.body;
   const location = {latitude: latitude, longitude: longitude};
