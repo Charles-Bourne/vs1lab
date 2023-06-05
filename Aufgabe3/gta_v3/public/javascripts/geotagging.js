@@ -43,7 +43,7 @@ function updateLocation() {
             //Map generation
             let taglist_json = map_element.getAttribute("data-tags");
             let GeoTagsArray = JSON.parse(taglist_json);
-            let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, GeoTagsArray, 13);
+            let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, GeoTagsArray, 16);
             map_element.setAttribute("src",newMapURL)
         }
 

@@ -3,7 +3,6 @@
 const GeoTagExamples = require("./geotag-examples");
 
 const GeoTag = require('../models/geotag');
-const Console = require("console");
 
 /**
  * This script is a template for exercise VS1lab/Aufgabe3
@@ -41,6 +40,7 @@ class InMemoryGeoTagStore{
         const exampleList =  GeoTagExamples.tagList;
 
         // Read the examples into the currentTags-Array
+
         for (let ex of exampleList) {
             //this.addGeoTag(new GeoTag(ex[0], ex[1], ex[2], ex[3]))
             this.addGeoTag(new GeoTag(ex[0], ex[1], ex[2], ex[3]))
