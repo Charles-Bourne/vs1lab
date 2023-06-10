@@ -117,3 +117,58 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(script);
     });
 });
+
+
+
+
+
+// Get the taglist and pagination buttons
+const discoveryResults = document.getElementById("discoveryResults");
+const taglist = JSON.parse(discoveryResults.dataset.taglist);
+const prevPageBtn = document.getElementById("prevPageBtn");
+const nextPageBtn = document.getElementById("nextPageBtn");
+
+// Constants for pagination
+const itemsPerPage = 5;
+let currentPage = 1;
+
+// Function to display taglist items for the current page
+function displayTaglist() {
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentTaglist = taglist.slice(startIndex, endIndex);
+
+  // Clear the existing taglist items
+  discoveryResults.innerHTML = "";
+
+  // Iterate over the current taglist and create list items
+  currentTaglist.forEach(function (gtag) {
+    const listItem = document.createElement("li");
+    listItem.innerText = `${gtag.name} (${gtag.latitude},${gtag.longitude}) ${gtag.tag}`;
+    discoveryResults.appendChild(listItem);
+  });
+
+  // Disable/enable pagination buttons based on current page
+  prevPageBtn.disabled = currentPage === 1;
+  nextPageBtn.disabled = endIndex >= taglist.length;
+}
+
+// Event listener for previous page button
+prevPageBtn.addEventListener("click", function () {
+  if (currentPage > 1) {
+    currentPage--;
+    displayTaglist();
+  }
+});
+
+// Event listener for next page button
+nextPageBtn.addEventListener("click", function () {
+  const totalPages = Math.ceil(taglist.length / itemsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    displayTaglist();
+  }
+});
+
+// Initial display of the taglist
+displayTaglist();

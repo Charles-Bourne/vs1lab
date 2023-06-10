@@ -195,6 +195,43 @@ h2 {
   gap: 1rem; /* Minimum space between the columns. */
 }
 
+/* div containing both buttons */
+.prev-next-btn {
+  padding-top: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prev-next-btn p {
+  margin: 0 10px;
+}
+
+/* prev and next page buttons */
+#prevPageBtn,
+#nextPageBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  border: 1px rgb(227, 227, 227) solid;
+  color: #333;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+
+#prevPageBtn:hover,
+#nextPageBtn:hover {
+  background-color: #ddd;
+}
+
+#prevPageBtn:disabled,
+#nextPageBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 
 .discovery__search fieldset {
   /* Give the fieldset some space between the borders and the fields. */
@@ -205,7 +242,6 @@ h2 {
   /* Add additional space above discovery button, because of hidden input fields. */
   margin-top: 1rem;
 }
-
 
 li{
   /* Remove List Styles. */
@@ -244,6 +280,7 @@ footer {
   border-top: solid 1px var(--border-color);
 }
 
+
 /* ### TODO ### Media Queries */
 /* ... your code here ... */
 @media only screen and (max-width: 850px) {
@@ -270,4 +307,7 @@ footer {
     width: 90%;
     padding: 0.5rem 0.5rem;
   }
+
+
+
 } 
