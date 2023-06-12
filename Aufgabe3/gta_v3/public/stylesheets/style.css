@@ -220,6 +220,7 @@ h2 {
   cursor: pointer;
   height: 20px;
   width: 20px;
+  margin-top: 0px;
 }
 
 #prevPageBtn:hover,
@@ -232,6 +233,14 @@ h2 {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* .discovery__results li {
+  display: none;
+}
+
+.discovery__results li.visible {
+  display: list-item;
+} */
 
 .discovery__search fieldset {
   /* Give the fieldset some space between the borders and the fields. */

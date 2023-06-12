@@ -118,57 +118,34 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// Define the currentPage variable outside the functions
+var currentPage = 1;
 
-
-
-
-// Get the taglist and pagination buttons
-const discoveryResults = document.getElementById("discoveryResults");
-const taglist = JSON.parse(discoveryResults.dataset.taglist);
-const prevPageBtn = document.getElementById("prevPageBtn");
-const nextPageBtn = document.getElementById("nextPageBtn");
-
-// Constants for pagination
-const itemsPerPage = 5;
-let currentPage = 1;
-
-// Function to display taglist items for the current page
-function displayTaglist() {
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  const currentTaglist = taglist.slice(startIndex, endIndex);
-
-  // Clear the existing taglist items
-  discoveryResults.innerHTML = "";
-
-  // Iterate over the current taglist and create list items
-  currentTaglist.forEach(function (gtag) {
-    const listItem = document.createElement("li");
-    listItem.innerText = `${gtag.name} (${gtag.latitude},${gtag.longitude}) ${gtag.tag}`;
-    discoveryResults.appendChild(listItem);
-  });
-
-  // Disable/enable pagination buttons based on current page
-  prevPageBtn.disabled = currentPage === 1;
-  nextPageBtn.disabled = endIndex >= taglist.length;
-}
-
-// Event listener for previous page button
-prevPageBtn.addEventListener("click", function () {
+function prevPage() {
   if (currentPage > 1) {
     currentPage--;
-    displayTaglist();
+    updatePage();
   }
-});
+}
 
-// Event listener for next page button
-nextPageBtn.addEventListener("click", function () {
-  const totalPages = Math.ceil(taglist.length / itemsPerPage);
+function nextPage() {
+  var totalPages = parseInt(document.getElementById('totalPages').textContent);
   if (currentPage < totalPages) {
     currentPage++;
-    displayTaglist();
+    updatePage();
   }
-});
+}
 
-// Initial display of the taglist
-displayTaglist();
+function updatePage() {
+  var taglist = JSON.parse(document.getElementById('mapView').getAttribute('data-tags'));
+  var resultList = document.getElementById('discoveryResults');
+  resultList.innerHTML = '';
+
+  taglist.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5).forEach(function(gtag) {
+    var li = document.createElement('li');
+    li.innerHTML = gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.tag;
+    resultList.appendChild(li);
+  });
+
+  document.getElementById('currentPage').textContent = currentPage;
+}
