@@ -59,11 +59,16 @@ class InMemoryGeoTagStore {
         return InMemoryGeoTagStore.#currentTags;
     }
 
+    /**
+     * returns the GeoTag with the given id
+     * @param {integer} id 
+     * @returns 
+     */
     getGeoTagByID(id) {
         // Create resultArray
         let matchingTags = this.AllGeoTags.filter((tag) => {
-            const nameMatch = tag.id.includes(id && id.toLowerCase());
-            return nameMatch;
+            //const nameMatch = tag.id.includes(id && id.toLowerCase());
+            return tag.id == id;
         });
 
         return matchingTags[0];
@@ -72,6 +77,7 @@ class InMemoryGeoTagStore {
     /**
      * Adds a GeoTag to the currentTags array.
      * @param {GeoTag} geoTag to be added to the store.
+     * @throws {Error} when the Tag already exists in the array
      */
     addGeoTag(geoTag) {
         // Check if the Tag exists already
@@ -82,7 +88,7 @@ class InMemoryGeoTagStore {
             InMemoryGeoTagStore.#currentTags.push(geoTag);
         } else {
             // otherwise display an error message
-            throw new Error('This Tag already Exists');
+            throw new Error('This Tag already exists');
         }
     }
 

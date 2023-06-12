@@ -30,7 +30,7 @@ class GeoTag {
         this.#latitude = latitude;
         this.#longitude = longitude;
         this.#tag = tag
-        this.id = GeoTag.counterID++;
+        this.#id = GeoTag.counterID++;
     }
 
     // Getter methods
