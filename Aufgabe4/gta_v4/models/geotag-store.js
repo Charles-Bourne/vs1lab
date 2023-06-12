@@ -82,15 +82,6 @@ class InMemoryGeoTagStore{
 
     }
 
-    /**
-     * Transforms x to its radians equivalent.
-     * @param {number} x 
-     * @returns radians 
-     */
-    toRadian(x) {
-        return x * Math.PI / 180.0;
-    }
-
     getDistanceBetween(locationOne, locationTwo) {
         let lat1 = locationOne.latitude;
         const lon1 = locationOne.longitude;
