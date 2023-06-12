@@ -10,12 +10,12 @@
  * GeoTag objects should contain at least all fields of the tagging form.
  */
 class GeoTag {
-
     // Declare private parametes
     #name = '';
     #latitude = 0;
     #longitude = 0;
     #tag = '';
+    #id = (this.name + this.latitude + this.longitude + this.tag).toString().toLowerCase();
 
     /**
      * Generate a GeoTag for the specified parameters.
@@ -63,6 +63,10 @@ class GeoTag {
      */
     get tag() {
         return this.#tag;
+    }
+
+    get id() {
+        return this.#id;
     }
 
     toJSON() {
