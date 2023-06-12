@@ -27,20 +27,25 @@ const GeoTag = require('../models/geotag');
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
-class InMemoryGeoTagStore{
+class InMemoryGeoTagStore {
 
     // Use private array
-    #currentTags = [];
+    // Define the static variable outside the class
+    static #currentTags = undefined;
 
     /**
      * Generate a GeoTagStore with the example tags from geotag-examples
      */
     constructor() {
+        if (InMemoryGeoTagStore.#currentTags !== undefined) {
+            return;
+        }
+
+        InMemoryGeoTagStore.#currentTags = [];
         // Get Examplelist from GeoTagExamples 
         const exampleList =  GeoTagExamples.tagList;
 
         // Read the examples into the currentTags-Array
-
         for (let ex of exampleList) {
             //this.addGeoTag(new GeoTag(ex[0], ex[1], ex[2], ex[3]))
             this.addGeoTag(new GeoTag(ex[0], ex[1], ex[2], ex[3]))
@@ -54,6 +59,15 @@ class InMemoryGeoTagStore{
         return this.#currentTags;
     }
 
+    getGeoTagByID(id) {
+        // Create resultArray
+        let matchingTags = this.AllGeoTags.filter((tag) => {
+            const nameMatch = tag.id.includes(id && id.toLowerCase());
+            return nameMatch;
+        });
+
+        return matchingTags[0];
+    }
 
     /**
      * Adds a GeoTag to the currentTags array.
@@ -68,11 +82,10 @@ class InMemoryGeoTagStore{
      * Delete GeoTags from the store by name.
      * @param {string} geoTagName the name of the GeoTag to be deleted from the store
      */
-    removeGeoTag(geoTagName) {
-
+    removeGeoTag(id) {
         let index = 0;
         // Count up "index" until the index of the geoTag with the name was found.
-        while(this.#currentTags[index].name !== geoTagName) {
+        while(this.#currentTags[index].id !== id) {
             index++;
         }
 
@@ -124,7 +137,7 @@ class InMemoryGeoTagStore{
      * @returns {array} An array of the Tags that are close to the given location
      */
     getNearbyGeoTags(location) {
-        // Declare size of radius in km - 50km for function test
+        // Declare size of radius in km
         let maxDistance = 5;
         // Create empty list of GeoTags
         let nearbyGeoTags = [];
@@ -146,7 +159,6 @@ class InMemoryGeoTagStore{
 
         return nearbyGeoTags;
     }
-
 
     /**
      * Searh the Tags closeby that match the given keyword
@@ -170,7 +182,6 @@ class InMemoryGeoTagStore{
 
         return matchingTags;
     }
-
 }
 
 module.exports = InMemoryGeoTagStore
