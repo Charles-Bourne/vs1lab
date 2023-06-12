@@ -56,7 +56,7 @@ class InMemoryGeoTagStore {
      * Getter-Mehtod for the private currentTags array.
      */
     get AllGeoTags() {
-        return this.#currentTags;
+        return InMemoryGeoTagStore.#currentTags;
     }
 
     getGeoTagByID(id) {
@@ -74,7 +74,16 @@ class InMemoryGeoTagStore {
      * @param {GeoTag} geoTag to be added to the store.
      */
     addGeoTag(geoTag) {
-        this.#currentTags.push(geoTag);
+        // Check if the Tag exists already
+        let existingTag = this.getGeoTagByID(geoTag.id);
+
+        // If it does not exist, add it to the array
+        if(existingTag == undefined) {
+            InMemoryGeoTagStore.#currentTags.push(geoTag);
+        } else {
+            // otherwise display an error message
+            throw new Error('This Tag already Exists');
+        }
     }
 
 
@@ -85,13 +94,13 @@ class InMemoryGeoTagStore {
     removeGeoTag(id) {
         let index = 0;
         // Count up "index" until the index of the geoTag with the name was found.
-        while(this.#currentTags[index].id !== id) {
+        while(InMemoryGeoTagStore.#currentTags[index].id !== id) {
             index++;
         }
 
         // Split the array into the part before the Geotag and the part after and concatenate
         // those two halves. We are cutting out the element that should be removed,
-        this.#currentTags = this.#currentTags.slice(0, index).concat(this.#currentTags.slice(index+1));
+        InMemoryGeoTagStore.#currentTags = InMemoryGeoTagStore.#currentTags.slice(0, index).concat(this.#currentTags.slice(index+1));
 
     }
 
@@ -122,9 +131,6 @@ class InMemoryGeoTagStore {
         let c = 2 * Math.asin(Math.sqrt(a));
 
         let distance = 6371 * c; // 6371 = radius of earth
-
-        // Debugging 
-        //console.log('Distance: ' + distance);
         
         return distance;
     }
@@ -143,11 +149,8 @@ class InMemoryGeoTagStore {
         let nearbyGeoTags = [];
 
         // Check for each of Tag in the currentlist
-        for (const el of this.#currentTags) {
+        for (const el of InMemoryGeoTagStore.#currentTags) {
 
-            // Debugging 
-            //console.log('--------------------------------------------');
-            //console.log('name of tag: ' + el.name);
 
             // Calculate the distance of the current tag and the current location of the user
             const tagDistance = this.getDistanceBetween({latitude: el.latitude, longitude: el.longitude}, {latitude: location.latitude, longitude: location.longitude});
