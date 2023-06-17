@@ -67,8 +67,47 @@ class GeoTag {
         return this.#tag;
     }
 
+    /**
+     * Getter method for the id of the GeoTag.
+     * @return {number} the id of the GeoTag.
+     */
     get id() {
         return this.#id;
+    }
+
+
+    // Setter mathods
+
+    /**
+     * Setter method for the name of the GeoTag.
+     * @param {string} myName the new name of the GeoTag
+     */
+    set name(myName) {
+        this.#name = myName;
+    }
+
+    /**
+     * Setter method for the latitude of the GeoTag.
+     * @param {number} myLat the new name of the GeoTag
+     */
+    set latitude(myLat) {
+        this.#latitude = myLat;
+    }
+
+    /**
+     * Setter method for the longitude of the GeoTag.
+     * @param {number} myLon the new name of the GeoTag
+     */
+    set longitude(myLon) {
+        this.#longitude = myLon;
+    }
+
+    /**
+     * Setter method for the tag of the GeoTag.
+     * @param {string} myTag the new name of the GeoTag
+     */
+    set tag(myTag) {
+        this.#tag = myTag;
     }
 
     toJSON() {
