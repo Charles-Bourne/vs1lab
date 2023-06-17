@@ -61,10 +61,16 @@ class InMemoryGeoTagStore {
 
     /**
      * returns the GeoTag with the given id
-     * @param {integer} id 
-     * @returns 
+     * @param {number} id 
+     * @returns matching GeoTag or undefined if no GeoTag was found
+     * @throws Error if given id is undefined
      */
     getGeoTagByID(id) {
+
+        if(id == undefined) {
+            throw new Error('The given ID is undefined');
+        }
+
         // Create resultArray
         let matchingTags = this.AllGeoTags.filter((tag) => {
             //const nameMatch = tag.id.includes(id && id.toLowerCase());
@@ -109,6 +115,42 @@ class InMemoryGeoTagStore {
 
     }
 
+    /**
+     * Update a GeoTag by giving it's id and the new properties
+     * @param {number} id the ID of the GeoTag you want to change
+     * @param {string} name the new name 
+     * @param {number} lat the new latitude 
+     * @param {number} long the new longitude 
+     * @param {string} tag the new tag
+     * @throw Error if one of the parameters is undefined or if there is no 
+     *      GeoTag with the given ID number
+     */
+    updateGeoTag(id, name, lat, long, tag) {
+        // Check if the Parameters are undefined
+        if(id == undefined || name == undefined || lat == undefined || tag == undefined) {
+            throw new Error('One of the given parameters is undefined.');
+        }
+        // Create new GeoTag
+        let current = this.getGeoTagByID(id);
+
+        // If there is no GeoTag with the given ID, throw error
+        if(current == undefined) {
+            throw new Error('The given ID does not match any GeoTags');
+        }
+
+        // Change properties od the GeoTag
+        current.name(name);
+        current.latitude(lat);
+        current.long(long);
+        current.tag(tag);
+    }
+
+    /**
+     * Calculate the distance between two locations in km
+     * @param {location} locationOne first location
+     * @param {location} locationTwo second location
+     * @returns {number} the distance between the two locations in km
+     */
     getDistanceBetween(locationOne, locationTwo) {
         let lat1 = locationOne.latitude;
         const lon1 = locationOne.longitude;
