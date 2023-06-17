@@ -68,7 +68,7 @@ class InMemoryGeoTagStore {
         // Create resultArray
         let matchingTags = this.AllGeoTags.filter((tag) => {
             //const nameMatch = tag.id.includes(id && id.toLowerCase());
-            return tag.id == id;
+            return tag.id === id;
         });
 
         return matchingTags[0];
@@ -84,7 +84,7 @@ class InMemoryGeoTagStore {
         let existingTag = this.getGeoTagByID(geoTag.id);
 
         // If it does not exist, add it to the array
-        if(existingTag == undefined) {
+        if(existingTag === undefined) {
             InMemoryGeoTagStore.#currentTags.push(geoTag);
         } else {
             // otherwise display an error message
