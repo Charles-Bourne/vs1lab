@@ -81,15 +81,14 @@ class InMemoryGeoTagStore {
      */
     addGeoTag(geoTag) {
         // Check if the Tag exists already
-        let existingTag = this.getGeoTagByID(geoTag.id);
-
-        // If it does not exist, add it to the array
-        if(existingTag === undefined) {
-            InMemoryGeoTagStore.#currentTags.push(geoTag);
-        } else {
-            // otherwise display an error message
-            throw new Error('This Tag already exists');
+        // Since IDs are always unique, we need to compare the whole GeoTags
+        for (let tag of InMemoryGeoTagStore.#currentTags) {
+            if(tag.isEqual(geoTag)) {
+                throw new Error('This Tag already exists');
+            }
         }
+        
+        InMemoryGeoTagStore.#currentTags.push(geoTag);
     }
 
 

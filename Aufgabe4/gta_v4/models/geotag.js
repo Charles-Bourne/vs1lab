@@ -80,9 +80,17 @@ class GeoTag {
             id: this.id
         };
     }
+
+    isEqual(myTag) {
+        if(myTag == undefined) {
+            throw new Error('Tried comparing two GeoTags, but one is undefined.');
+        }
+        return(
+            this.name == myTag.name
+            && this.tag == myTag.tag
+            && this.latitude == myTag.latitude
+            && this.#longitude == myTag.longitude
+        );
+    }
 }
-
-//['Castle', 49.013790, 8.404435, '#sight']
-// name, latitute, longitute, tag
-
 module.exports = GeoTag;
