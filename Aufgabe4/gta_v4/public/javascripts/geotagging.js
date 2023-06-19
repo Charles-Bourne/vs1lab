@@ -108,43 +108,53 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getTags(event) {
-    event.preventDefault(); // Prevent the default form submission
-  
-    var latitude = document.getElementById("latitude").value;
-    var longitude = document.getElementById("longitude").value;
-    var searchTerm = document.getElementById("searchterm").value;
-  
-    var url = "/api/geotags";
-  
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "latitude": latitude,
-        "longitude": longitude,
-        "searchterm": searchTerm
-      },
-    })
-      .then(function(response) {
-        let map_element = document.getElementById("mapView");
-        response.json().then(data => {
-            map_element.setAttribute("data-tags", JSON.stringify(data));
-            updateLocation();
-        })
-      })
-      .then(function(data) {
-        console.log(data);
-        // Process the response data
-      })
-      .catch(function(error) {
-        // Handle network errors
-        console.error("Network error:", error);
+  event.preventDefault();
+
+  var latitude = document.getElementById("latitude").value;
+  var longitude = document.getElementById("longitude").value;
+  var searchTerm = document.getElementById("searchterm").value;
+
+  var url = "/api/geotags";
+
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      latitude: latitude,
+      longitude: longitude,
+      searchterm: searchTerm,
+    },
+  })
+    .then(function (response) {
+      let map_element = document.getElementById("mapView");
+      response.json().then(function (data) {
+        map_element.setAttribute("data-tags", JSON.stringify(data));
+        updateLocation();
+        updateTaglist(data);
       });
-  }
+    })
+    .then(function (data) {
+      console.log(data);
+    })
+    .catch(function (error) {
+      console.error("Network error:", error);
+    });
+}
+
+function updateTaglist(data) {
+  var taglistElement = document.getElementById("discoveryResults");
+  taglistElement.innerHTML = "";
+
+  data.forEach(function (tag) {
+    var li = document.createElement("li");
+    li.textContent = tag.name + " (" + tag.latitude + "," + tag.longitude + ") " + tag.tag ;
+    taglistElement.appendChild(li);
+  });
+}
   
 
 function submitTags(event) {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault();
 
     var latitude = document.getElementById("latitude").value;
     var longitude = document.getElementById("longitude").value;
