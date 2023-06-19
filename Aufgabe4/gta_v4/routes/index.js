@@ -109,7 +109,7 @@ router.post('/discovery', (req, res) => {
  */
 // TODO: ... your code here ...
 router.get('/api/geotags', (req, res) => {
-  const { searchterm, latitude, longitude } = req.body //req.query;
+  const { searchterm, latitude, longitude } = req.headers //req.query;
   let taglist = myStore.AllGeoTags;
   let location = {latitude: latitude, longitude: longitude};
 
