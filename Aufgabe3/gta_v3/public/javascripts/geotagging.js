@@ -117,3 +117,35 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(script);
     });
 });
+
+// Define the currentPage variable outside the functions
+var currentPage = 1;
+
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    updatePage();
+  }
+}
+
+function nextPage() {
+  var totalPages = parseInt(document.getElementById('totalPages').textContent);
+  if (currentPage < totalPages) {
+    currentPage++;
+    updatePage();
+  }
+}
+
+function updatePage() {
+  var taglist = JSON.parse(document.getElementById('mapView').getAttribute('data-tags'));
+  var resultList = document.getElementById('discoveryResults');
+  resultList.innerHTML = '';
+
+  taglist.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5).forEach(function(gtag) {
+    var li = document.createElement('li');
+    li.innerHTML = gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.tag;
+    resultList.appendChild(li);
+  });
+
+  document.getElementById('currentPage').textContent = currentPage;
+}
