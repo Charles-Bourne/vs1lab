@@ -142,10 +142,7 @@ router.post('/api/geotags', (req, res) => {
 
   myStore.addGeoTag(newGeoTag);
 
-  const location = { latitude, longitude };
-  const taglist = myStore.getNearbyGeoTags(location);
-
-  res.status(201).location(`/api/geotags/${newGeoTag.id}`);
+  res.status(201).location(`/api/geotags/${newGeoTag.id}`).json(newGeoTag);
 });
 
 
