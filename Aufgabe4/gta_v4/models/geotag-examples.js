@@ -17,7 +17,7 @@ class GeoTagExamples {
      */
     static get tagList() {
         return [
-            ['Castle', 49.013790, 8.404435, '#sight'],
+            ['Castle', 49.013790, 8.400435, '#sight'],
             ['IWI', 49.013790, 8.390071, '#edu'],
             ['Building E', 49.014993, 8.390049, '#campus'],
             ['Building F', 49.015608, 8.390112, '#campus'],

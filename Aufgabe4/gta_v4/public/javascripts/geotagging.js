@@ -127,12 +127,8 @@ function getTags(event) {
     })
       .then(function(response) {
         let map_element = document.getElementById("mapView");
-
-        console.log(map_element.getAttribute("data-tags"));
-        
         response.json().then(data => {
-            console.log(data);
-            map_element.setAttribute("data-tags", JSON.parse(data));
+            map_element.setAttribute("data-tags", JSON.stringify(data));
             updateLocation();
         })
       })
