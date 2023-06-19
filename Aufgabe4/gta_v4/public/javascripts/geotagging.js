@@ -109,36 +109,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function getTags(event) {
     event.preventDefault(); // Prevent the default form submission
-
+  
     var latitude = document.getElementById("latitude").value;
     var longitude = document.getElementById("longitude").value;
     var searchTerm = document.getElementById("searchterm").value;
-
-
-    fetch("/api/geotags", {
+  
+    var url = "/api/geotags";
+  
+    fetch(url, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "latitude": latitude,
+        "longitude": longitude,
+        "searchterm": searchTerm
       },
-      body: "latitude=" + encodeURIComponent(latitude) +
-      "&longitude=" + encodeURIComponent(longitude) +
-      "&searchterm=" + encodeURIComponent(searchTerm),
     })
       .then(function(response) {
-        if (response.ok) {
-          // Handle the successful response
-          console.log(response.body);
-          updateLocation();
-        } else {
-          // Handle the error response
-          console.error("Failed to add tag");
-        }
+        updateLocation();
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data);
+        // Process the response data
       })
       .catch(function(error) {
         // Handle network errors
         console.error("Network error:", error);
       });
   }
+  
 
 function submitTags(event) {
     event.preventDefault(); // Prevent the default form submission
