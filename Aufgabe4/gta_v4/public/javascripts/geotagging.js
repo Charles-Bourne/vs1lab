@@ -10,12 +10,6 @@ let scriptsToLoad = ['./javascripts/map-manager.js', './javascripts/location-hel
 // Try to find this output in the browser...
 console.log("The geoTagging script is going to start...");
 
-/**
- * TODO: 'updateLocation'
- * A function to retrieve the current location and update the page.
- * It is called once the page has been fully loaded.
- */
-// ... your code here ...
 function updateLocation() {
     try{
         //Get input elements from Tagging container
@@ -69,11 +63,6 @@ function updateLocation() {
     }
 }
 
-//function isCoordinates(variable) {
-//    const coordinatesRegex = /^(-?[0-9]|[1-8][0-9]|90)\.\d{1,15}$/;
-//    return typeof variable === 'string' && coordinatesRegex.test(variable);
-//}
-
 function isCoordinates(location) {
     // Check if location is an object
     if (typeof location !== 'object' || location === null) {
@@ -117,3 +106,36 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(script);
     });
 });
+
+function submitTags(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var latitude = document.getElementById("latitude").value;
+    var longitude = document.getElementById("longitude").value;
+    var name = document.getElementById("name").value;
+    var hashtag = document.getElementById("hashtag").value;
+
+    fetch("/tagging", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: "latitude=" + encodeURIComponent(latitude) +
+            "&longitude=" + encodeURIComponent(longitude) +
+            "&name=" + encodeURIComponent(name) +
+            "&hashtag=" + encodeURIComponent(hashtag)
+    })
+      .then(function(response) {
+        if (response.ok) {
+          // Handle the successful response
+          console.log("Tag added successfully!");
+        } else {
+          // Handle the error response
+          console.error("Failed to add tag");
+        }
+      })
+      .catch(function(error) {
+        // Handle network errors
+        console.error("Network error:", error);
+      });
+  }
