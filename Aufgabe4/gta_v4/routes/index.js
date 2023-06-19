@@ -109,18 +109,19 @@ router.post('/discovery', (req, res) => {
  */
 // TODO: ... your code here ...
 router.get('/api/geotags', (req, res) => {
-  const { searchterm, latitude, longitude } = req.query;
+  const { searchterm, latitude, longitude } = req.body //req.query;
   let taglist = myStore.AllGeoTags;
+  let location = {latitude: latitude, longitude: longitude};
 
-  if (searchterm) {
-    taglist = myStore.searchNearbyGeoTags({}, searchterm);
+  if (latitude && longitude && searchterm) {
+    taglist = myStore.searchNearbyGeoTags(location, searchterm);
+  } else if (latitude && longitude) {
+    taglist = taglist.getNearbyGeoTags(location);
+  } else if (searchterm) {
+    //Only Searchterm is not supported
   }
 
-  if (latitude && longitude) {
-    taglist = myStore.getNearbyGeoTags({ latitude, longitude });
-  }
-
-  res.json(taglist);
+  res.status(200).json(taglist);
 });
 
 
@@ -144,7 +145,7 @@ router.post('/api/geotags', (req, res) => {
   const location = { latitude, longitude };
   const taglist = myStore.getNearbyGeoTags(location);
 
-  res.location(`/api/geotags/${newGeoTag.id}`).json(newGeoTag);
+  res.status(201).location(`/api/geotags/${newGeoTag.id}`);
 });
 
 
