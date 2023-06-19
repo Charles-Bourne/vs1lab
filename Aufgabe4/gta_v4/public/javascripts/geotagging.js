@@ -107,6 +107,39 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+function getTags(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    var latitude = document.getElementById("latitude").value;
+    var longitude = document.getElementById("longitude").value;
+    var searchTerm = document.getElementById("searchterm").value;
+
+
+    fetch("/api/geotags", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: "latitude=" + encodeURIComponent(latitude) +
+      "&longitude=" + encodeURIComponent(longitude) +
+      "&searchterm=" + encodeURIComponent(searchTerm),
+    })
+      .then(function(response) {
+        if (response.ok) {
+          // Handle the successful response
+          console.log(response.body);
+          updateLocation();
+        } else {
+          // Handle the error response
+          console.error("Failed to add tag");
+        }
+      })
+      .catch(function(error) {
+        // Handle network errors
+        console.error("Network error:", error);
+      });
+  }
+
 function submitTags(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -115,10 +148,10 @@ function submitTags(event) {
     var name = document.getElementById("name").value;
     var hashtag = document.getElementById("hashtag").value;
 
-    fetch("/tagging", {
+    fetch("/api/geotags", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/json"
       },
       body: "latitude=" + encodeURIComponent(latitude) +
             "&longitude=" + encodeURIComponent(longitude) +
@@ -126,9 +159,10 @@ function submitTags(event) {
             "&hashtag=" + encodeURIComponent(hashtag)
     })
       .then(function(response) {
+        console.log(response);
         if (response.ok) {
           // Handle the successful response
-          console.log("Tag added successfully!");
+          updateLocation();
         } else {
           // Handle the error response
           console.error("Failed to add tag");
