@@ -118,7 +118,7 @@ function getTags(event) {
 
   fetch(url, {
     method: "GET",
-    headers: {
+      headers: {
       "Content-Type": "application/json",
       latitude: latitude,
       longitude: longitude,
@@ -163,19 +163,21 @@ function submitTags(event) {
 
     fetch("/api/geotags", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: "latitude=" + encodeURIComponent(latitude) +
-            "&longitude=" + encodeURIComponent(longitude) +
-            "&name=" + encodeURIComponent(name) +
-            "&hashtag=" + encodeURIComponent(hashtag)
+        headers: {
+            "Content-Type": "application/json",
+        },
+      body: {
+          name: name,
+          latitude: latitude,
+          longitude: longitude,
+          hashtag: hashtag,
+      }
     })
       .then(function(response) {
         console.log(response);
         if (response.ok) {
           // Handle the successful response
-          updateLocation();
+          getTags();
         } else {
           // Handle the error response
           console.error("Failed to add tag");
