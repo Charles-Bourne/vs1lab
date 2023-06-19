@@ -116,6 +116,7 @@ class GeoTag {
             latitude: this.latitude,
             longitude: this.longitude,
             name: this.name,
+            tag: this.tag,
             id: this.id
         };
     }
