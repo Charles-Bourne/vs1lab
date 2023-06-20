@@ -18,11 +18,11 @@ function get() {
 }
 
 function post() {
-  ${CURL_CMD} -X POST -H 'Content-Type: application/json' -d "{\"name\": ${GT_NAME}, \"latitude\": ${GT_LATITUDE}, \"longitude\": ${GT_LONGITUDE}, \"hashtag\": ${GT_HASHTAG}}" "${SERVER}:${PORT}${API_URL}"
+  ${CURL_CMD} -X POST -H 'Content-Type: application/json' -d "{\"name\": \"${GT_NAME}\", \"latitude\": \"${GT_LATITUDE}\", \"longitude\": \"${GT_LONGITUDE}\", \"hashtag\": \"${GT_HASHTAG}\"}" "${SERVER}:${PORT}${API_URL}"
 }
 
 function put() {
-  ${CURL_CMD} -X PUT -H 'Content-Type: application/json' -d "{\"name\": ${GT_NAME}, \"latitude\": ${GT_LATITUDE}, \"longitude\": ${GT_LONGITUDE}, \"hashtag\": ${GT_HASHTAG}}" "${SERVER}:${PORT}${API_URL}/${GT_ID}"
+  ${CURL_CMD} -X PUT -H 'Content-Type: application/json' -d "{\"name\": \"${GT_NAME}\", \"latitude\": \"${GT_LATITUDE}\", \"longitude\": \"${GT_LONGITUDE}\", \"hashtag\": \"${GT_HASHTAG}\"}" "${SERVER}:${PORT}${API_URL}/${GT_ID}"
 }
 
 function delete() {
