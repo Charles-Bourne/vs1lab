@@ -3,6 +3,7 @@
 const GeoTagExamples = require("./geotag-examples");
 
 const GeoTag = require('../models/geotag');
+const Console = require("console");
 
 /**
  * This script is a template for exercise VS1lab/Aufgabe3
@@ -66,15 +67,15 @@ class InMemoryGeoTagStore {
      * @throws Error if given id is undefined
      */
     getGeoTagByID(id) {
-
         if(id == undefined) {
             throw new Error('The given ID is undefined');
         }
 
         // Create resultArray
-        let matchingTags = this.AllGeoTags.filter((tag) => {
+        const matchingTags = this.AllGeoTags.filter((tag) => {
             //const nameMatch = tag.id.includes(id && id.toLowerCase());
-            return tag.id === id;
+            //console.log("tag.id == id: " + tag.id + " =?= " + id + " = " + (tag.id == id))
+            return tag.id == id;
         });
 
         return matchingTags[0];
