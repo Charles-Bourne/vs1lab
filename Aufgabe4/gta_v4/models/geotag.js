@@ -121,15 +121,15 @@ class GeoTag {
         };
     }
 
-    isEqual(myTag) {
-        if(myTag == undefined) {
+    isEqual(geoTag) {
+        if(geoTag == undefined) {
             throw new Error('Tried comparing two GeoTags, but one is undefined.');
         }
         return(
-            this.name === myTag.name
-            && this.tag === myTag.tag
-            && this.latitude === myTag.latitude
-            && this.longitude === myTag.longitude
+            this.name === geoTag.name
+            && this.tag === geoTag.tag
+            && this.latitude === geoTag.latitude
+            && this.longitude === geoTag.longitude
         );
     }
 }
