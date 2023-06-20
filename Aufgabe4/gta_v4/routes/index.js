@@ -26,7 +26,7 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
-const myStore = new GeoTagStore();
+const myStorage = new GeoTagStore();
 
 // App routes (A3)
 /**
@@ -39,7 +39,7 @@ const myStore = new GeoTagStore();
  */
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  const defaultTaglist = myStore.AllGeoTags;
+  const defaultTaglist = myStorage.AllGeoTags;
   const location = {latitude: "XXXXXXXXXXX", longitude: "XXXXXXXXXXX"};
 
   res.render('index', { taglist: defaultTaglist, currentlocation: location })
@@ -64,8 +64,8 @@ router.post('/tagging', (req, res) => {
   const newGeoTag = new GeoTag(name, latitude, longitude, hashtag);
   const location = {latitude: latitude, longitude: longitude};
 
-  myStore.addGeoTag(newGeoTag);
-  const taglist = myStore.getNearbyGeoTags(location);
+  myStorage.addGeoTag(newGeoTag);
+  const taglist = myStorage.getNearbyGeoTags(location);
 
   res.render('index.ejs', { taglist, currentlocation: location });
 });
@@ -89,7 +89,7 @@ router.post('/discovery', (req, res) => {
   const { latitude, longitude,  searchterm } = req.body;
   const location = {latitude: latitude, longitude: longitude};
 
-  const taglist = myStore.searchNearbyGeoTags(location, searchterm);
+  const taglist = myStorage.searchNearbyGeoTags(location, searchterm);
 
   res.render('index.ejs', { taglist, currentlocation: location });
 });
@@ -110,11 +110,11 @@ router.post('/discovery', (req, res) => {
 // TODO: ... your code here ...
 router.get('/api/geotags', (req, res) => {
   const { searchterm, latitude, longitude } = req.headers //req.query;
-  let taglist = myStore.AllGeoTags;
+  let taglist = myStorage.AllGeoTags;
   let location = {latitude: latitude, longitude: longitude};
 
   if (latitude && longitude && searchterm) {
-    taglist = myStore.searchNearbyGeoTags(location, searchterm);
+    taglist = taglist.searchNearbyGeoTags(location, searchterm);
   } else if (latitude && longitude) {
     taglist = taglist.getNearbyGeoTags(location);
   } else if (searchterm) {
@@ -140,9 +140,12 @@ router.post('/api/geotags', (req, res) => {
   const { name, latitude, longitude, hashtag } = req.body;
   const newGeoTag = new GeoTag(name, latitude, longitude, hashtag);
 
-  myStore.addGeoTag(newGeoTag);
-
-  res.status(201).location(`/api/geotags/${newGeoTag.id}`).json(newGeoTag);
+  try {
+    myStorage.addGeoTag(newGeoTag);
+    res.status(201).location(`/api/geotags/${newGeoTag.id}`).json(newGeoTag);
+  } catch (error) {
+    res.status(409);
+  }
 });
 
 
@@ -158,10 +161,10 @@ router.post('/api/geotags', (req, res) => {
 // TODO: ... your code here ...
 router.get('/api/geotags/:id', (req, res) => {
   const { id } = req.params;
-  const geoTag = myStore.getGeoTagByName(id)
+  const geoTag = myStorage.getGeoTagByID(id)
 
   if (geoTag) {
-    res.json(geoTag);
+    res.status(200).json(geoTag);
   } else {
     res.status(404).json({ error: 'GeoTag not found' });
   }
@@ -184,14 +187,11 @@ router.get('/api/geotags/:id', (req, res) => {
 router.put('/api/geotags/:id', (req, res) => {
   const { id } = req.params;
   const { name, latitude, longitude, hashtag } = req.body;
-  const updatedGeoTag = new GeoTag(name, latitude, longitude, hashtag);
-  updatedGeoTag.id = id;
 
-  const success = myStore.updateGeoTag(updatedGeoTag);
-
-  if (success) {
-    res.json(updatedGeoTag);
-  } else {
+  try {
+    myStorage.updateGeoTag(id, name, latitude, longitude, hashtag);
+    res.status(200).json(myStorage.getGeoTagByID(id))
+  } catch (error) {
     res.status(404).json({ error: 'GeoTag not found' });
   }
 });
@@ -210,11 +210,12 @@ router.put('/api/geotags/:id', (req, res) => {
 // TODO: ... your code here ...
 router.delete('/api/geotags/:id', (req, res) => {
   const { id } = req.params;
-  const deletedGeoTag = myStore.removeGeoTag(id);
+  const geoTag = myStorage.getGeoTagByID(id);
 
-  if (deletedGeoTag) {
-    res.json(deletedGeoTag);
-  } else {
+  try {
+    myStorage.removeGeoTag(id)
+    res.status(200).json(geoTag)
+  } catch (error) {
     res.status(404).json({ error: 'GeoTag not found' });
   }
 });
