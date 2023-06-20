@@ -126,10 +126,10 @@ class GeoTag {
             throw new Error('Tried comparing two GeoTags, but one is undefined.');
         }
         return(
-            this.name == myTag.name
-            && this.tag == myTag.tag
-            && this.latitude == myTag.latitude
-            && this.#longitude == myTag.longitude
+            this.name === myTag.name
+            && this.tag === myTag.tag
+            && this.latitude === myTag.latitude
+            && this.longitude === myTag.longitude
         );
     }
 }
