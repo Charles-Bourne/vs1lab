@@ -114,9 +114,9 @@ router.get('/api/geotags', (req, res) => {
   let location = {latitude: latitude, longitude: longitude};
 
   if (latitude && longitude && searchterm) {
-    taglist = taglist.searchNearbyGeoTags(location, searchterm);
+    taglist = myStorage.searchNearbyGeoTags(location, searchterm);
   } else if (latitude && longitude) {
-    taglist = taglist.getNearbyGeoTags(location);
+    taglist = myStorage.getNearbyGeoTags(location);
   } else if (searchterm) {
     //Only Searchterm is not supported
   }
@@ -189,8 +189,8 @@ router.put('/api/geotags/:id', (req, res) => {
   const { name, latitude, longitude, hashtag } = req.body;
 
   try {
-    myStorage.updateGeoTag(id, name, latitude, longitude, hashtag);
-    res.status(200).json(myStorage.getGeoTagByID(id))
+    const geoTag = myStorage.updateGeoTag(id, name, latitude, longitude, hashtag);
+    res.status(200).json(geoTag)
   } catch (error) {
     res.status(404).json({ error: 'GeoTag not found' });
   }
