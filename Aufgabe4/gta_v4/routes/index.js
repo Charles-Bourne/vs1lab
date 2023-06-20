@@ -192,7 +192,7 @@ router.put('/api/geotags/:id', (req, res) => {
     const geoTag = myStorage.updateGeoTag(id, name, latitude, longitude, hashtag);
     res.status(200).json(geoTag)
   } catch (error) {
-    res.status(404).json({ error: 'GeoTag not found' });
+    res.status(404).json({ error: error.toString() });
   }
 });
 
@@ -216,7 +216,7 @@ router.delete('/api/geotags/:id', (req, res) => {
     myStorage.removeGeoTag(id)
     res.status(200).json(geoTag)
   } catch (error) {
-    res.status(404).json({ error: 'GeoTag not found' });
+    res.status(404).json({ error: error.toString() });
   }
 });
 
