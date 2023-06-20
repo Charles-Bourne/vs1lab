@@ -112,7 +112,6 @@ class InMemoryGeoTagStore {
         // Split the array into the part before the Geotag and the part after and concatenate
         // those two halves. We are cutting out the element that should be removed,
         InMemoryGeoTagStore.#currentTags = InMemoryGeoTagStore.#currentTags.slice(0, index).concat(this.#currentTags.slice(index+1));
-
     }
 
     /**
@@ -141,7 +140,7 @@ class InMemoryGeoTagStore {
         // Change properties od the GeoTag
         current.name(name);
         current.latitude(lat);
-        current.long(long);
+        current.longitude(long);
         current.tag(tag);
     }
 
