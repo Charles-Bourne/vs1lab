@@ -146,6 +146,7 @@ class InMemoryGeoTagStore {
         current.latitude(lat);
         current.longitude(long);
         current.tag(tag);
+        return current;
     }
 
     /**
