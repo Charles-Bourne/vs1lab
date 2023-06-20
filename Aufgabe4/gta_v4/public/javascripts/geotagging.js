@@ -114,17 +114,13 @@ function getTags(event) {
   var longitude = document.getElementById("longitude").value;
   var searchTerm = document.getElementById("searchterm").value;
 
+  // Build the URL with query parameters
   var url = "/api/geotags";
+  url += "?latitude=" + encodeURIComponent(latitude);
+  url += "&longitude=" + encodeURIComponent(longitude);
+  url += "&searchterm=" + encodeURIComponent(searchTerm);
 
-  fetch(url, {
-    method: "GET",
-      headers: {
-      "Content-Type": "application/json",
-      latitude: latitude,
-      longitude: longitude,
-      searchterm: searchTerm,
-    },
-  })
+  fetch(url)
     .then(function (response) {
       let map_element = document.getElementById("mapView");
       response.json().then(function (data) {
@@ -134,13 +130,11 @@ function getTags(event) {
         updatePage();
       });
     })
-    .then(function (data) {
-      console.log(data);
-    })
     .catch(function (error) {
       console.error("Network error:", error);
     });
 }
+
 
 function updateTaglist(data) {
   var taglistElement = document.getElementById("discoveryResults");
@@ -167,22 +161,23 @@ function submitTags(event) {
         headers: {
             "Content-Type": "application/json",
         },
-      body: {
-          name: name,
-          latitude: latitude,
-          longitude: longitude,
-          hashtag: hashtag,
-      }
+      body: JSON.stringify({
+        name: name,
+        latitude: latitude,
+        longitude: longitude,
+        hashtag: hashtag,
+      }),
     })
       .then(function(response) {
-        console.log(response);
-        if (response.ok) {
-          // Handle the successful response
-          getTags();
-        } else {
-          // Handle the error response
-          console.error("Failed to add tag");
-        }
+        let map_element = document.getElementById("mapView");
+        var taglist = JSON.parse(map_element.getAttribute('data-tags'));
+        response.json().then(function (data) {
+          var updatedDataTags = taglist.concat(data);
+          map_element.setAttribute("data-tags", JSON.stringify(updatedDataTags));
+          updateLocation();
+          updateTaglist(updatedDataTags);
+          updatePage();
+        });
       })
       .catch(function(error) {
         // Handle network errors
