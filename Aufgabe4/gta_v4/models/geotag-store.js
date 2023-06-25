@@ -131,7 +131,7 @@ class InMemoryGeoTagStore {
      */
     updateGeoTag(id, name, lat, long, tag) {
         // Check if the Parameters are undefined
-        if(id == undefined || name == undefined || lat == undefined || tag == undefined) {
+        if(id == undefined || name == undefined || lat == undefined || long == undefined || tag == undefined) {
             throw new Error('One of the given parameters is undefined.');
         }
         // Create new GeoTag
@@ -143,10 +143,10 @@ class InMemoryGeoTagStore {
         }
 
         // Change properties od the GeoTag
-        current.name(name);
-        current.latitude(lat);
-        current.longitude(long);
-        current.tag(tag);
+        current.name = name;
+        current.latitude = lat;
+        current.longitude = long;
+        current.tag = tag;
         return current;
     }
 
@@ -202,7 +202,6 @@ class InMemoryGeoTagStore {
 
         // Check for each of Tag in the currentlist
         for (const el of InMemoryGeoTagStore.#currentTags) {
-
 
             // Calculate the distance of the current tag and the current location of the user
             const tagDistance = this.getDistanceBetween({latitude: el.latitude, longitude: el.longitude}, {latitude: location.latitude, longitude: location.longitude});
