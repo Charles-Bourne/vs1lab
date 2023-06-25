@@ -124,6 +124,26 @@ router.get('/api/geotags', (req, res) => {
   res.status(200).json(taglist);
 });
 
+/**
+ * Route '/api/geotags/:id' for HTTP 'GET' requests.
+ * (http://expressjs.com/de/4x/api.html#app.get.method)
+ *
+ * Requests contain the ID of a tag in the path.
+ * (http://expressjs.com/de/4x/api.html#req.params)
+ *
+ * The requested tag is rendered as JSON in the response.
+ */
+// TODO: ... your code here ...
+router.get('/api/geotags/:id', (req, res) => {
+  const { id } = req.params;
+  const geoTag = myStorage.getGeoTagByID(id)
+
+  if (geoTag) {
+    res.status(200).json(geoTag);
+  } else {
+    res.status(404).json({ error: 'GeoTag not found' });
+  }
+});
 
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
@@ -145,28 +165,6 @@ router.post('/api/geotags', (req, res) => {
     res.status(201).location(`/api/geotags/${newGeoTag.id}`).json(newGeoTag);
   } catch (error) {
     res.status(409);
-  }
-});
-
-
-/**
- * Route '/api/geotags/:id' for HTTP 'GET' requests.
- * (http://expressjs.com/de/4x/api.html#app.get.method)
- *
- * Requests contain the ID of a tag in the path.
- * (http://expressjs.com/de/4x/api.html#req.params)
- *
- * The requested tag is rendered as JSON in the response.
- */
-// TODO: ... your code here ...
-router.get('/api/geotags/:id', (req, res) => {
-  const { id } = req.params;
-  const geoTag = myStorage.getGeoTagByID(id)
-
-  if (geoTag) {
-    res.status(200).json(geoTag);
-  } else {
-    res.status(404).json({ error: 'GeoTag not found' });
   }
 });
 

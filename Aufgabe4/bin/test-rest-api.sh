@@ -14,6 +14,14 @@ SEARCHTERM="";
 
 #GET, POST, PUT, DELETE
 function get() {
+  ${CURL_CMD} -X GET -H 'Content-Type: application/json' "${SERVER}:${PORT}${API_URL}";
+}
+
+function get_by_id() {
+  ${CURL_CMD} -X GET -H 'Content-Type: application/json' "${SERVER}:${PORT}${API_URL}/${GT_ID}";
+}
+
+function get_search() {
   ${CURL_CMD} -X GET -H 'Content-Type: application/json' "${SERVER}:${PORT}${API_URL}?searchterm=${SEARCHTERM}&latitude=${GT_LATITUDE}&longitude=${GT_LONGITUDE}";
 }
 
@@ -32,11 +40,13 @@ function delete() {
 # Menü anzeigen
 function show_menu() {
   echo "REST-API-Client Menü:"
-  echo "1. GET"
-  echo "2. POST"
-  echo "3. PUT"
-  echo "4. DELETE"
-  echo "5. Beenden"
+  echo "1. GET (ALL)"
+  echo "2. GET (By ID)"
+  echo "3. GET (SEARCH)"
+  echo "4. POST"
+  echo "5. PUT"
+  echo "6. DELETE"
+  echo "7. Beenden"
 }
 
 # Benutzereingabe verarbeiten
@@ -45,16 +55,31 @@ function process_user_input() {
   echo "Bitte Daten eingeben ... "
   case $choice in
     1)
+        echo "";
+        echo "####### Result: ######"
+        get
+        echo "";
+        echo "##### Result ENDE ####"
+        ;;
+    2)
+        read -p "id: " && GT_ID="${REPLY}";
+        echo "";
+        echo "####### Result: ######"
+        get_by_id
+        echo "";
+        echo "##### Result ENDE ####"
+        ;;
+    3)
       read -p "searchterm: " && SEARCHTERM="${REPLY}";
       read -p "latitude: " && GT_LATITUDE="${REPLY}";
       read -p "longitude: " && GT_LONGITUDE="${REPLY}";
       echo "";
       echo "####### Result: ######"
-      get
+      get_search
       echo "";
       echo "##### Result ENDE ####"
       ;;
-    2)
+    4)
       read -p "name: " && GT_NAME="${REPLY}";
       read -p "latitude: " && GT_LATITUDE="${REPLY}";
       read -p "longitude: " && GT_LONGITUDE="${REPLY}";
@@ -65,7 +90,7 @@ function process_user_input() {
       echo "";
       echo "##### Result ENDE ####"
       ;;
-    3)
+    5)
       read -p "id: " && GT_ID="${REPLY}";
       read -p "name: " && GT_NAME="${REPLY}";
       read -p "latitude: " && GT_LATITUDE="${REPLY}";
@@ -77,7 +102,7 @@ function process_user_input() {
       echo "";
       echo "##### Result ENDE ####"
       ;;
-    4)
+    6)
       read -p "id: " && GT_ID="${REPLY}";
       echo "";
       echo "####### Result: ######"
@@ -85,7 +110,7 @@ function process_user_input() {
       echo "";
       echo "##### Result ENDE ####"
       ;;
-    5)
+    7)
       echo "Das Skript wird beendet."
       exit 0
       ;;
