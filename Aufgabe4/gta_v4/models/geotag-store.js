@@ -100,8 +100,8 @@ class InMemoryGeoTagStore {
 
 
     /**
-     * Delete GeoTags from the store by name.
-     * @param {string} geoTagName the name of the GeoTag to be deleted from the store
+     * Delete GeoTags from the store by id.
+     * @param id
      */
     removeGeoTag(id) {
         if (this.getGeoTagByID(id) == undefined) {
@@ -110,7 +110,7 @@ class InMemoryGeoTagStore {
 
         let index = 0;
         // Count up "index" until the index of the geoTag with the name was found.
-        while(InMemoryGeoTagStore.#currentTags[index].id !== id) {
+        while(InMemoryGeoTagStore.#currentTags[index].id != id) {
             index++;
         }
 
