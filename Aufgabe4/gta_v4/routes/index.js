@@ -120,12 +120,17 @@ router.get('/api/geotags', (req, res) => {
   } else if (searchterm) {
     //Only Searchterm is not supported
   }
+  let taglistLength = taglist.length;
   let maxPages = Math.ceil(taglist.length / 5);
 
   if (pagenumber) {
     var anfang = (pagenumber-1)*5;
     var ende = pagenumber*5+1;
-    taglist = taglist.slice(anfang, ende);
+    if(taglistLength >= ende) {
+      taglist.taglist.slice(anfang, ende);
+    } else {
+      taglist = taglist.slice(anfang, taglistLength);
+    }
   }
 
   res.status(200).json(taglist).json(maxPages);
