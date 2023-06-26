@@ -107,27 +107,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function getTags(event) {
-  event.preventDefault();
+function getTags() {
 
   var latitude = document.getElementById("latitude").value;
   var longitude = document.getElementById("longitude").value;
   var searchTerm = document.getElementById("searchterm").value;
+  var pageNumber = document.getElementById("currentPage").innerHTML;
 
   // Build the URL with query parameters
   var url = "/api/geotags";
   url += "?latitude=" + encodeURIComponent(latitude);
   url += "&longitude=" + encodeURIComponent(longitude);
   url += "&searchterm=" + encodeURIComponent(searchTerm);
+  url += "&pagenumber=" + encodeURIComponent(pageNumber);
 
   fetch(url)
     .then(function (response) {
       let map_element = document.getElementById("mapView");
       response.json().then(function (data) {
-        map_element.setAttribute("data-tags", JSON.stringify(data));
+        var jsonTaglist = JSON.parse(JSON.stringify(data))["taglist"];
+        var jsonPageNumber = JSON.parse(JSON.stringify(data))["maxPages"];
+        map_element.setAttribute("data-tags", JSON.stringify(jsonTaglist));
         updateLocation();
-        updateTaglist(data);
-        updatePage();
+        console.table(jsonTaglist);
+        updateTaglist(jsonTaglist);
+        document.getElementById("totalPages").setAttribute("innerHTML", jsonPageNumber);
       });
     })
     .catch(function (error) {
@@ -148,8 +152,7 @@ function updateTaglist(data) {
 }
   
 
-function submitTags(event) {
-    event.preventDefault();
+function submitTags() {
 
     var latitude = document.getElementById("latitude").value;
     var longitude = document.getElementById("longitude").value;
@@ -176,7 +179,6 @@ function submitTags(event) {
           map_element.setAttribute("data-tags", JSON.stringify(updatedDataTags));
           updateLocation();
           updateTaglist(updatedDataTags);
-          updatePage();
         });
       })
       .catch(function(error) {
@@ -185,35 +187,15 @@ function submitTags(event) {
       });
   }
 
-  // Define the currentPage variable outside the functions
-var currentPage = 1;
-
 function prevPage() {
-  if (currentPage > 1) {
-    currentPage--;
-    updatePage();
-  }
+  var pageNumber = document.getElementById("currentPage").innerHTML;
+  document.getElementById("currentPage").setAttribute("innerHTML", pageNumber - 1);
+  console.log( document.getElementById("currentPage").innerHTML);
+  getTags();
 }
 
 function nextPage() {
-  var totalPages = parseInt(document.getElementById('totalPages').textContent);
-  if (currentPage < totalPages) {
-    currentPage++;
-    updatePage();
-  }
-}
-
-function updatePage() {
-  var taglist = JSON.parse(document.getElementById('mapView').getAttribute('data-tags'));
-  
-  var resultList = document.getElementById('discoveryResults');
-  resultList.innerHTML = '';
-
-  taglist.slice((currentPage - 1) * 5, (currentPage - 1) * 5 + 5).forEach(function(gtag) {
-    var li = document.createElement('li');
-    li.innerHTML = gtag.name + ' (' + gtag.latitude + ',' + gtag.longitude + ') ' + gtag.tag;
-    resultList.appendChild(li);
-  });
-  document.getElementById("totalPages").textContent = Math.ceil(taglist.length / 5);
-  document.getElementById('currentPage').textContent = currentPage;
+  var pageNumber = document.getElementById("currentPage").innerHTML;
+  document.getElementById("currentPage").setAttribute("innerHTML", pageNumber + 1);
+  getTags();
 }

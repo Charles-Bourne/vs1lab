@@ -131,7 +131,7 @@ router.get('/api/geotags', (req, res) => {
       var anfang = (pagenumber-1)*5;
       var ende = pagenumber*5;
       if(taglistLength >= ende) {
-        taglist.taglist.slice(anfang, ende);
+        taglist = taglist.slice(anfang, ende);
       } else {
         taglist = taglist.slice(anfang, taglistLength);
       }

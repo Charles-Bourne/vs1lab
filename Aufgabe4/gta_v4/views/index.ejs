@@ -64,8 +64,7 @@
             <div class="discovery__taglist" id="discovery__taglist">
               <ul class="discovery__results" id="discoveryResults" data-taglist="<%- JSON.stringify(taglist) %>">
                 <!-- Taglist items will be dynamically added here -->
-                <% var currentPage = 1;%> <% if (taglist !== undefined) { taglist.slice((currentPage - 1) * 5, (currentPage - 1) * 5 +
-                5).forEach(function(gtag) { %>
+                <% var currentPage = 1;%> <% if (taglist !== undefined) { taglist.forEach(function(gtag) { %>
                 <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.tag %></li>
                 <% }); } %>
               </ul>
@@ -76,7 +75,7 @@
               <p>
                 <span id="currentPage">1</span>
                 /
-                <span id="totalPages"><%= Math.ceil(taglist.length / 5) %></span>
+                <span id="totalPages">0</span>
               </p>
               <button onclick="nextPage()" name="nextPageBtn" class="nextPageBtn" id="nextPageBtn">&gt;</button>
             </div>
