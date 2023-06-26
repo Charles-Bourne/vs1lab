@@ -109,7 +109,7 @@ router.post('/discovery', (req, res) => {
  */
 // TODO: ... your code here ...
 router.get('/api/geotags', (req, res) => {
-  const { searchterm, latitude, longitude } = req.query;
+  const { searchterm, latitude, longitude, pagenumber } = req.query;
   let taglist = myStorage.AllGeoTags;
   let location = {latitude: latitude, longitude: longitude};
 
@@ -120,8 +120,15 @@ router.get('/api/geotags', (req, res) => {
   } else if (searchterm) {
     //Only Searchterm is not supported
   }
+  let maxPages = Math.ceil(taglist.length / 5);
 
-  res.status(200).json(taglist);
+  if (pagenumber) {
+    var anfang = (pagenumber-1)*5;
+    var ende = pagenumber*5+1;
+    taglist = taglist.slice(anfang, ende);
+  }
+
+  res.status(200).json(taglist).json(maxPages);
 });
 
 /**
