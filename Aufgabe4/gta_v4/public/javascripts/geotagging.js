@@ -129,9 +129,8 @@ function getTags() {
         var jsonPageNumber = JSON.parse(JSON.stringify(data))["maxPages"];
         map_element.setAttribute("data-tags", JSON.stringify(jsonTaglist));
         updateLocation();
-        console.table(jsonTaglist);
         updateTaglist(jsonTaglist);
-        document.getElementById("totalPages").setAttribute("innerHTML", jsonPageNumber);
+        document.getElementById("totalPages").innerHTML = jsonPageNumber;
       });
     })
     .catch(function (error) {
@@ -189,13 +188,19 @@ function submitTags() {
 
 function prevPage() {
   var pageNumber = document.getElementById("currentPage").innerHTML;
-  document.getElementById("currentPage").setAttribute("innerHTML", pageNumber - 1);
-  console.log( document.getElementById("currentPage").innerHTML);
+  var newPageNumber = parseInt(pageNumber) - 1;
+  if(pageNumber > 1){
+    document.getElementById("currentPage").innerHTML = newPageNumber;
   getTags();
+  }
 }
 
 function nextPage() {
-  var pageNumber = document.getElementById("currentPage").innerHTML;
-  document.getElementById("currentPage").setAttribute("innerHTML", pageNumber + 1);
+  var pageNumber = document.getElementById("currentPage").innerText;
+  var newPageNumber = parseInt(pageNumber) + 1;
+  if(pageNumber < document.getElementById("totalPages").innerHTML){
+    document.getElementById("currentPage").innerHTML = newPageNumber;
   getTags();
+  }
+  
 }
