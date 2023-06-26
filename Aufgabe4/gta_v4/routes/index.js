@@ -125,7 +125,7 @@ router.get('/api/geotags', (req, res) => {
     if (pagenumber) {
       let taglistLength = taglist.length;
       let maxPages = Math.ceil(taglistLength / 5);
-      if (pagenumber > maxPages && pagenumber < 1) {
+      if (pagenumber > maxPages || pagenumber < 1) {
         throw new Error("page not valid");
       }
       var anfang = (pagenumber-1)*5;
