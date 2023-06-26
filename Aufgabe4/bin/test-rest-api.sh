@@ -11,6 +11,7 @@ GT_NAME="";
 GT_HASHTAG="";
 GT_ID="";
 SEARCHTERM="";
+PAGENUMBER="";
 
 #GET, POST, PUT, DELETE
 function get() {
@@ -22,7 +23,7 @@ function get_by_id() {
 }
 
 function get_search() {
-  ${CURL_CMD} -X GET -H 'Content-Type: application/json' "${SERVER}:${PORT}${API_URL}?searchterm=${SEARCHTERM}&latitude=${GT_LATITUDE}&longitude=${GT_LONGITUDE}";
+  ${CURL_CMD} -X GET -H 'Content-Type: application/json' "${SERVER}:${PORT}${API_URL}?searchterm=${SEARCHTERM}&latitude=${GT_LATITUDE}&longitude=${GT_LONGITUDE}&pagenumber=${PAGENUMBER}";
 }
 
 function post() {
@@ -73,6 +74,7 @@ function process_user_input() {
       read -p "searchterm: " && SEARCHTERM="${REPLY}";
       read -p "latitude: " && GT_LATITUDE="${REPLY}";
       read -p "longitude: " && GT_LONGITUDE="${REPLY}";
+      read -p "pagenumber: " && PAGENUMBER="${REPLY}";
       echo "";
       echo "####### Result: ######"
       get_search

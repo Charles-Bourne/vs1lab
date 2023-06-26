@@ -120,20 +120,28 @@ router.get('/api/geotags', (req, res) => {
   } else if (searchterm) {
     //Only Searchterm is not supported
   }
-  let taglistLength = taglist.length;
-  let maxPages = Math.ceil(taglist.length / 5);
 
-  if (pagenumber) {
-    var anfang = (pagenumber-1)*5;
-    var ende = pagenumber*5+1;
-    if(taglistLength >= ende) {
-      taglist.taglist.slice(anfang, ende);
+  try {
+    if (pagenumber) {
+      if (pagenumber > maxPages && pagenumber < 1) {
+        throw new Error("page not valid");
+      }
+      let taglistLength = taglist.length;
+      let maxPages = Math.ceil(taglist.length / 5);
+      var anfang = (pagenumber-1)*5;
+      var ende = pagenumber*5;
+      if(taglistLength >= ende) {
+        taglist.taglist.slice(anfang, ende);
+      } else {
+        taglist = taglist.slice(anfang, taglistLength);
+      }
+      res.status(200).json({taglist, maxPages});
     } else {
-      taglist = taglist.slice(anfang, taglistLength);
+      res.status(200).json(taglist);
     }
+  } catch (error) {
+    res.status(404).json({ error: error.toString() })
   }
-
-  res.status(200).json(taglist).json(maxPages);
 });
 
 /**
