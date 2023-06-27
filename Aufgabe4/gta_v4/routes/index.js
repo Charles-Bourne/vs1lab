@@ -121,13 +121,12 @@ router.get('/api/geotags', (req, res) => {
     //Only Searchterm is not supported
   }
 
-  try {
-    if (pagenumber) {
-      let taglistLength = taglist.length;
-      let maxPages = Math.ceil(taglistLength / 5);
-      if (pagenumber > maxPages || pagenumber < 1) {
-        throw new Error("page not valid");
-      }
+  if (pagenumber) {
+    let taglistLength = taglist.length;
+    let maxPages = Math.ceil(taglistLength / 5);
+    if (pagenumber > maxPages || pagenumber < 1) {
+      res.status(404).json({ error: "page not valid" })
+    } else {
       var anfang = (pagenumber-1)*5;
       var ende = pagenumber*5;
       if(taglistLength >= ende) {
@@ -136,11 +135,9 @@ router.get('/api/geotags', (req, res) => {
         taglist = taglist.slice(anfang, taglistLength);
       }
       res.status(200).json({taglist, maxPages});
-    } else {
-      res.status(200).json(taglist);
     }
-  } catch (error) {
-    res.status(404).json({ error: error.toString() })
+  } else {
+    res.status(200).json(taglist);
   }
 });
 
