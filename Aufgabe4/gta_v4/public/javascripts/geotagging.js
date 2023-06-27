@@ -171,14 +171,7 @@ function submitTags() {
       }),
     })
       .then(function(response) {
-        let map_element = document.getElementById("mapView");
-        var taglist = JSON.parse(map_element.getAttribute('data-tags'));
-        response.json().then(function (data) {
-          var updatedDataTags = taglist.concat(data);
-          map_element.setAttribute("data-tags", JSON.stringify(updatedDataTags));
-          updateLocation();
-          updateTaglist(updatedDataTags);
-        });
+        getTags();
       })
       .catch(function(error) {
         // Handle network errors
@@ -202,5 +195,4 @@ function nextPage() {
     document.getElementById("currentPage").innerHTML = newPageNumber;
   getTags();
   }
-  
 }

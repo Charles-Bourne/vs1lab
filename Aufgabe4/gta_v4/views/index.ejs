@@ -39,9 +39,10 @@
             <label for="hashtag">Hashtag:</label>
             <input type="text" id="hashtag" name="hashtag" placeholder="e.g. #ber" pattern="#[A-Za-z0-9]{1,10}" title="Hashtag muss mit # beginnen und darf maximal 10 Buchstaben haben" />
             <br />
-            <button onclick="submitTags(event)" type="submit" value="Add Tag">Add Tag</button>
+            
           </fieldset>
         </form>
+        <button onclick="submitTags()" type="submit" value="Add Tag">Add Tag</button>
         <!-- ############### VS1Lab 1a Form 1 End -->
       </section>
       <section class="main__discovery discovery col-9">
@@ -54,9 +55,10 @@
             <input type="text" id="searchterm" name="searchterm" placeholder="e.g. Berlin" required pattern=".{1,50}" />
             <input type="hidden" id="discovery_latitude" name="latitude" value="<%=currentlocation.latitude%>" />
             <input type="hidden" id="discovery_longitude" name="longitude" value="<%=currentlocation.longitude%>" />
-            <button onclick="getTags(event)" type="submit" value="Search">Search</button>
+            
           </fieldset>
         </form>
+        <button onclick="getTags()" type="submit" value="Search">Search</button>
         <!-- ############### VS1Lab 1a Form 2 End -->
 
         <div class="discovery__wrapper">
@@ -64,7 +66,7 @@
             <div class="discovery__taglist" id="discovery__taglist">
               <ul class="discovery__results" id="discoveryResults" data-taglist="<%- JSON.stringify(taglist) %>">
                 <!-- Taglist items will be dynamically added here -->
-                <% var currentPage = 1;%> <% if (taglist !== undefined) { taglist.forEach(function(gtag) { %>
+                <% if (taglist !== undefined) { taglist.forEach(function(gtag) { %>
                 <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.tag %></li>
                 <% }); } %>
               </ul>
@@ -75,7 +77,7 @@
               <p>
                 <span id="currentPage">1</span>
                 /
-                <span id="totalPages">0</span>
+                <span id="totalPages">1</span>
               </p>
               <button onclick="nextPage()" name="nextPageBtn" class="nextPageBtn" id="nextPageBtn">&gt;</button>
             </div>
