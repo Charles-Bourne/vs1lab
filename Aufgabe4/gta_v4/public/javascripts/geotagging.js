@@ -4,6 +4,7 @@
 
 // This script is executed when the browser loads index.html.
 let scriptsToLoad = ['./javascripts/map-manager.js', './javascripts/location-helper.js', 'https://cdn.jsdelivr.net/npm/geolib/dist/geolib.min.js'];
+let currentSearchterm;
 
 // "console.log" writes to the browser's console. 
 // The console window must be opened explicitly in the browser.
@@ -108,13 +109,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function getTags() {
-
   var latitude = document.getElementById("latitude").value;
   var longitude = document.getElementById("longitude").value;
   var searchTerm = document.getElementById("searchterm").value;
   var pageNumber = document.getElementById("currentPage").innerHTML;
 
-  // Build the URL with query parameters
+  if (currentSearchterm != searchTerm) {
+      currentSearchterm = searchTerm;
+      pageNumber = 1;
+      document.getElementById("currentPage").setAttribute("value", pageNumber);
+  }
+
+        // Build the URL with query parameters
   var url = "/api/geotags";
   url += "?latitude=" + encodeURIComponent(latitude);
   url += "&longitude=" + encodeURIComponent(longitude);
