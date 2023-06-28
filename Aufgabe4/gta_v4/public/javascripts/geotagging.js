@@ -5,6 +5,7 @@
 // This script is executed when the browser loads index.html.
 let scriptsToLoad = ['./javascripts/map-manager.js', './javascripts/location-helper.js', 'https://cdn.jsdelivr.net/npm/geolib/dist/geolib.min.js'];
 let lastSearchterm;
+var firstLoad = 0;
 
 // "console.log" writes to the browser's console. 
 // The console window must be opened explicitly in the browser.
@@ -29,6 +30,7 @@ function updateLocation() {
         let longitude;
 
         function updateDOCElements() {
+          
             //Set input elements
             tagging_latitude_element.setAttribute("value",latitude);
             tagging_longitude_element.setAttribute("value",longitude);
@@ -41,6 +43,9 @@ function updateLocation() {
               let GeoTagsArray = JSON.parse(taglist_json);
             let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, GeoTagsArray, 16);
             map_element.setAttribute("src",newMapURL);
+            if(firstLoad == 1){
+              getTags();
+            }
             }
         }
 
@@ -103,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
         script.onload = () => {
             numLoadedScripts++;
             if (numLoadedScripts === scriptsToLoad.length) {
+              firstLoad++;
                 updateLocation();
             }
         };
@@ -136,6 +142,7 @@ function getTags() {
         var jsonTaglist = JSON.parse(JSON.stringify(data))["taglist"];
         var jsonPageNumber = JSON.parse(JSON.stringify(data))["maxPages"];
         map_element.setAttribute("data-tags", JSON.stringify(jsonTaglist));
+        firstLoad++;
         updateLocation();
         updateTaglist(jsonTaglist);
         document.getElementById("totalPages").innerHTML = jsonPageNumber;
@@ -180,6 +187,8 @@ function submitTags() {
     })
       .then(function(response) {
         getTags();
+        document.getElementById("name").value = '';
+        document.getElementById("hashtag").value = '';
       })
       .catch(function(error) {
         // Handle network errors
@@ -192,7 +201,7 @@ function prevPage() {
   var newPageNumber = parseInt(pageNumber) - 1;
   if(pageNumber > 1){
     document.getElementById("currentPage").innerHTML = newPageNumber;
-  getTags();
+    getTags();
   }
 }
 
@@ -201,6 +210,6 @@ function nextPage() {
   var newPageNumber = parseInt(pageNumber) + 1;
   if(pageNumber < document.getElementById("totalPages").innerHTML){
     document.getElementById("currentPage").innerHTML = newPageNumber;
-  getTags();
+    getTags();
   }
 }
