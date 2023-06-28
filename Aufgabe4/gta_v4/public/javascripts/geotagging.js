@@ -5,7 +5,7 @@
 // This script is executed when the browser loads index.html.
 let scriptsToLoad = ['./javascripts/map-manager.js', './javascripts/location-helper.js', 'https://cdn.jsdelivr.net/npm/geolib/dist/geolib.min.js'];
 let lastSearchterm;
-var firstLoad = 0;
+var firstLoad = false;
 
 // "console.log" writes to the browser's console. 
 // The console window must be opened explicitly in the browser.
@@ -43,7 +43,8 @@ function updateLocation() {
               let GeoTagsArray = JSON.parse(taglist_json);
             let newMapURL = new MapManager("0kxBbT8geCAawUpZoWmJT2RJehiouJBN").getMapUrl(latitude,longitude, GeoTagsArray, 16);
             map_element.setAttribute("src",newMapURL);
-            if(firstLoad == 1){
+            if(firstLoad == true){
+              firstLoad = false;
               getTags();
             }
             }
@@ -108,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         script.onload = () => {
             numLoadedScripts++;
             if (numLoadedScripts === scriptsToLoad.length) {
-              firstLoad++;
+              firstLoad = true;
                 updateLocation();
             }
         };
@@ -142,7 +143,6 @@ function getTags() {
         var jsonTaglist = JSON.parse(JSON.stringify(data))["taglist"];
         var jsonPageNumber = JSON.parse(JSON.stringify(data))["maxPages"];
         map_element.setAttribute("data-tags", JSON.stringify(jsonTaglist));
-        firstLoad++;
         updateLocation();
         updateTaglist(jsonTaglist);
         document.getElementById("totalPages").innerHTML = jsonPageNumber;
