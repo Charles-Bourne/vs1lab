@@ -39,10 +39,18 @@ const myStorage = new GeoTagStore();
  */
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  const defaultTaglist = myStorage.AllGeoTags;
   const location = {latitude: "XXXXXXXXXXX", longitude: "XXXXXXXXXXX"};
+  let defaultTaglist = myStorage.AllGeoTags;
+  const defaultTaglistLength = defaultTaglist.length;
+  const maxPages = Math.ceil(defaultTaglistLength / 5);
 
-  res.render('index', { taglist: defaultTaglist, currentlocation: location })
+  if(defaultTaglistLength < 5) {
+    defaultTaglist = myStorage.AllGeoTags.slice(0, defaultTaglistLength);
+  } else {
+    defaultTaglist = myStorage.AllGeoTags.slice(0, 5);
+  }
+
+  res.render('index', { taglist: defaultTaglist, currentlocation: location, maxpages: maxPages })
 });
 
 /**
