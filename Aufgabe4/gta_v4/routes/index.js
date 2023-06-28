@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
     defaultTaglist = myStorage.AllGeoTags.slice(0, 5);
   }
 
-  res.render('index', { taglist: defaultTaglist, currentlocation: location, maxpages: maxPages })
+  res.render('index', { taglist: defaultTaglist, currentlocation: location })
 });
 
 /**
