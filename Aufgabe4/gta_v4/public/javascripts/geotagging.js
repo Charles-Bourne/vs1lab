@@ -141,11 +141,11 @@ function getTags() {
       let map_element = document.getElementById("mapView");
       response.json().then(function (data) {
         var jsonTaglist = JSON.parse(JSON.stringify(data))["taglist"];
-        var jsonPageNumber = JSON.parse(JSON.stringify(data))["maxPages"];
+        var maxPages = JSON.parse(JSON.stringify(data))["maxPages"];
         map_element.setAttribute("data-tags", JSON.stringify(jsonTaglist));
         updateLocation();
         updateTaglist(jsonTaglist);
-        document.getElementById("totalPages").innerHTML = jsonPageNumber;
+        document.getElementById("maxPages").innerHTML = maxPages;
       });
     })
     .catch(function (error) {
@@ -208,7 +208,7 @@ function prevPage() {
 function nextPage() {
   var pageNumber = document.getElementById("currentPage").innerText;
   var newPageNumber = parseInt(pageNumber) + 1;
-  if(pageNumber < document.getElementById("totalPages").innerHTML){
+  if(pageNumber < document.getElementById("maxPages").innerHTML){
     document.getElementById("currentPage").innerHTML = newPageNumber;
     getTags();
   }
